@@ -1,6 +1,5 @@
 import NextAuth, { type DefaultSession } from 'next-auth';
 import Google from 'next-auth/providers/google';
-import Facebook from 'next-auth/providers/facebook';
 import { PrismaClient, SocialProvider, GradeLevel } from './lib/generated/prisma';
 import { prisma } from './lib/db';
 
@@ -33,10 +32,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
-    Facebook({
-      clientId: process.env.FACEBOOK_APP_ID!,
-      clientSecret: process.env.FACEBOOK_APP_SECRET!,
-    }),
   ],
   session: {
     strategy: 'jwt',
@@ -60,7 +55,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
 
       try {
-        const provider = account.provider.toUpperCase() as 'GOOGLE' | 'FACEBOOK';
+        const provider = 'GOOGLE' as SocialProvider;
         const providerId = account.providerAccountId;
 
         const existingUser = await prisma.user.findUnique({
