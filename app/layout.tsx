@@ -112,13 +112,11 @@ export default function RootLayout({
 
   return (
     <html lang="th">
-      <head>
+      <body className="antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrgData) }}
         />
-      </head>
-      <body className="antialiased">
         <GAScript />
         {children}
       </body>

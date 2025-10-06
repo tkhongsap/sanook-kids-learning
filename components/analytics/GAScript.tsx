@@ -4,11 +4,11 @@ import Script from 'next/script';
 import { useEffect } from 'react';
 import { trackPageView } from '@/lib/analytics';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
-export default function GAScript() {
+function GAScriptInner() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
   // Track page views on route change
   useEffect(() => {
@@ -17,6 +17,12 @@ export default function GAScript() {
       trackPageView(url);
     }
   }, [pathname, searchParams]);
+
+  return null;
+}
+
+export default function GAScript() {
+  const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
   // Only load GA in production or if explicitly enabled
   if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID === 'G-XXXXXXXXXX') {
@@ -48,6 +54,10 @@ export default function GAScript() {
           `,
         }}
       />
+      
+      <Suspense fallback={null}>
+        <GAScriptInner />
+      </Suspense>
     </>
   );
 }

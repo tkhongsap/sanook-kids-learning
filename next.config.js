@@ -21,8 +21,7 @@ const nextConfig = {
     // ],
   },
 
-  // Performance optimizations
-  swcMinify: true,
+  // Performance optimizations (swcMinify is default in Next.js 15+)
   
   // Custom headers for caching and security
   async headers() {
