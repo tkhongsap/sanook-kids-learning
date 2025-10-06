@@ -2,7 +2,7 @@
 
 | | |
 | :--- | :--- |
-| **Version:** | 2.0 |
+| **Version:** | 2.2 |
 | **Status:** | Final |
 | **Date:** | October 6, 2025 |
 | **Author:** | Gemini AI |
@@ -11,7 +11,7 @@
 ### **1. Introduction**
 
 **1.1. Executive Summary**
-LearnThai Kids is a free, web-based educational platform designed to supplement the formal education of Thai students in Grade 4 (Prathom 4) and Grade 6 (Prathom 6). Inspired by the mastery learning model of Khan Academy, this platform provides curriculum-aligned video lessons and interactive exercises in core subjects like Mathematics and Science. By leveraging simple, intuitive design and social media authentication for progress tracking, LearnThai Kids aims to make quality supplementary education accessible, engaging, and effective for children across Thailand, regardless of their location or socioeconomic status.
+**Sanook Kids Learning** is a free, web-based educational platform designed to supplement the formal education of Thai students in Grade 4 (Prathom 4) and Grade 6 (Prathom 6). Inspired by the mastery learning model of Khan Academy, this platform provides curriculum-aligned video lessons and interactive exercises in core subjects like Mathematics and Science. By leveraging simple, intuitive design and social media authentication for progress tracking, **Sanook Kids Learning** aims to make quality supplementary education accessible, engaging, and effective for children across Thailand, regardless of their location or socioeconomic status.
 
 **1.2. Problem Statement**
 Students in Thailand often require extra help outside the classroom to master key subjects. However, access to quality tutoring or supplementary tools can be limited by cost and geography. Existing global platforms are not fully aligned with the Thai national curriculum or presented in the native language, creating a significant barrier for young learners. There is a clear need for a free, localized, and self-paced learning tool that helps students build confidence and achieve mastery.
@@ -42,7 +42,7 @@ Students in Thailand often require extra help outside the classroom to master ke
 ### **3. User Scenarios & Journey**
 
 **3.1. Scenario 1: Nong Som's First Learning Session**
-1.  Nong Som's mother hears about LearnThai Kids and navigates to the website on their family tablet.
+1.  Nong Som's mother hears about **Sanook Kids Learning** and navigates to the website on their family tablet.
 2.  The landing page is bright and welcoming. Her mom sees the "ลงชื่อเข้าใช้ด้วย Google" (Sign in with Google) button and clicks it, using her own Google account.
 3.  A prompt asks, "นักเรียนอยู่ชั้นอะไรเอ่ย?" (Which grade are you in?). Her mom selects "ชั้น ป.4" for Som.
 4.  They are taken to the Grade 4 dashboard, showing "คณิตศาสตร์" (Math) and "วิทยาศาสตร์" (Science). Som clicks on Math.
@@ -108,15 +108,51 @@ A user's journey is mapped as follows:
 * **5.4. Localization:**
     * All UI text, instructional content, and video/audio content must be in the Thai language.
 
-### **6. Content Strategy**
+### **6. Design, Layout, and UX Principles (Inspired by Khan Academy)**
 
+This section details the user experience (UX) and user interface (UI) guidelines, directly inspired by the clarity and effectiveness of khanacademy.org, but adapted for our younger Thai audience.
+
+**6.1. Overall Aesthetic & Philosophy**
+* **Clean and Uncluttered:** The interface must be free of distractions. Abundant white space should be used to focus the student's attention on the learning content.
+* **Encouraging and Academic:** The color palette should be bright, positive, and engaging for children (e.g., friendly blues, greens, oranges) but should feel educational, not like a cartoon or game.
+* **Visual Hierarchy:** The most important elements (e.g., the next lesson, the practice question) must be the most visually prominent on any given screen.
+
+**6.2. Layout and Navigation**
+* **Dashboard & Course Pages (Card-Based):**
+    * Subjects (Math, Science) and Units (Fractions, Electricity) will be presented as a grid of clear, clickable "cards."
+    * Each card should display the unit name and a simple, relevant icon. A visual progress bar on the unit card will show how many topics within it have been mastered.
+* **Left-Hand Navigation (Desktop View):**
+    * When inside a unit, a persistent left-hand sidebar should list all the topics within that unit.
+    * This allows students to easily see where they are, what's next, and navigate between topics. The current topic should be highlighted.
+* **Focused Learning Page:**
+    * This is the most critical screen. It will have a simple two-part layout:
+        1.  **Top Section:** A large, embedded video player.
+        2.  **Bottom Section:** The interactive practice module.
+    * There should be no other distracting navigation or content on this screen. A "Back to Unit" or breadcrumb link should be the only exit path.
+
+**6.3. Content Presentation and Style**
+* **Video Content:**
+    * The style should emulate Khan Academy's effective "digital blackboard" approach. An instructor narrates in a friendly, clear Thai voice while drawing, writing, and illustrating the concepts on screen.
+    * Videos must be short and focused on a single, specific concept.
+* **Question & Answer Content:**
+    * Questions must be written in simple, clear Thai, appropriate for the grade level.
+    * Answer choices should be unambiguous.
+
+**6.4. Key UI Components & Interactions**
+* **Progress Indicators:** This is central to the Khan Academy experience.
+    * **Checkmarks (`✓`):** A clear, satisfying checkmark icon (เครื่องหมายถูก) will appear next to any topic that has been "Mastered."
+    * **Progress Bars:** Units and subjects should have progress bars that fill up as the student masters the topics within them.
+* **Feedback and Motivation:**
+    * **Instant Feedback:** Upon answering a question, the interface will immediately show "ถูกต้อง!" (Correct!) or "ลองอีกครั้ง" (Try Again) with clear visual cues (e.g., green for correct, red/orange for incorrect).
+    * **Mastery Celebration:** The "เก่งมาก!" (Excellent!) mastery confirmation screen should be a rewarding moment, with positive animations and encouraging text to build student confidence.
+
+### **7. Content Strategy**
 * **Curriculum:** All educational content must be strictly aligned with the Thai Ministry of Education's Basic Education Core Curriculum for Prathom 4 and Prathom 6.
 * **Subjects for V1:** Mathematics and Science.
 * **Content Format:** Each topic will consist of one short video ($<7$ minutes) and a bank of at least 10-15 unique practice questions to allow for retries.
 * **Dependency:** The creation of high-quality, engaging video and question content is the highest priority dependency for this project's success.
 
-### **7. Assumptions & Dependencies**
-
+### **8. Assumptions & Dependencies**
 * **Assumptions:**
     * Target users have access to a device (smartphone, tablet, or computer) and a stable internet connection.
     * Users (or their parents) have an active Google or Facebook account.
@@ -124,7 +160,7 @@ A user's journey is mapped as follows:
     * Availability of subject matter experts to create and verify curriculum-aligned content.
     * Continued access to Google and Facebook authentication APIs.
 
-### **8. Success Metrics & KPIs**
+### **9. Success Metrics & KPIs**
 
 | Metric Category | KPI | Target (Year 1) |
 | :--- | :--- | :--- |
@@ -134,7 +170,7 @@ A user's journey is mapped as follows:
 | **Retention** | 28-Day User Retention Rate | 15% |
 | **Quality** | User Satisfaction (via simple 1-5 star survey) | Average rating of 4.0 |
 
-### **9. Future Scope / Roadmap (Post-V1)**
+### **10. Future Scope / Roadmap (Post-V1)**
 
 The following features are explicitly out of scope for the initial launch but are key candidates for future releases:
 
