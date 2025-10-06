@@ -75,16 +75,16 @@ Based on PRD requirements for SEO, performance, and mobile-first design, recomme
 ## Tasks
 
 - [ ] **1.0 Project Setup & Infrastructure**
-  - [ ] 1.1 Initialize Next.js 14 project with TypeScript (`npx create-next-app@latest sanook-kids-learning --typescript --tailwind --app --eslint`)
-  - [ ] 1.2 Install required dependencies: `next`, `react`, `react-dom`, `typescript`, `tailwindcss`, `@types/react`, `@types/node`
-  - [ ] 1.3 Configure `tailwind.config.ts` with custom colors (Khan Academy-inspired green #14bf96, warm orange, Thai-friendly palette)
-  - [ ] 1.4 Set up Thai-friendly fonts in `next.config.js` and `app/layout.tsx` (Google Fonts: Sarabun, Prompt, or Kanit)
-  - [ ] 1.5 Configure `next.config.js` for image optimization (add domains for external images if needed)
-  - [ ] 1.6 Create `.env.local.example` with placeholders for `NEXT_PUBLIC_GA_MEASUREMENT_ID`, `GOOGLE_OAUTH_CLIENT_ID`, `FACEBOOK_APP_ID`
-  - [ ] 1.7 Set up project folder structure (`components/`, `lib/`, `types/`, `public/images/`)
-  - [ ] 1.8 Configure ESLint and Prettier for code consistency
-  - [ ] 1.9 Create `types/landing.ts` with TypeScript interfaces for Feature, Step, FAQ, etc.
-  - [ ] 1.10 Update `README.md` with project setup instructions, development commands, and tech stack overview
+  - [x] 1.1 Initialize Next.js 14 project with TypeScript (`npx create-next-app@latest sanook-kids-learning --typescript --tailwind --app --eslint`)
+  - [x] 1.2 Install required dependencies: `next`, `react`, `react-dom`, `typescript`, `tailwindcss`, `@types/react`, `@types/node`
+  - [x] 1.3 Configure `tailwind.config.ts` with custom colors (Khan Academy-inspired green #14bf96, warm orange, Thai-friendly palette)
+  - [x] 1.4 Set up Thai-friendly fonts in `next.config.js` and `app/layout.tsx` (Google Fonts: Sarabun, Prompt, or Kanit)
+  - [x] 1.5 Configure `next.config.js` for image optimization (add domains for external images if needed)
+  - [x] 1.6 Create `.env.local.example` with placeholders for `NEXT_PUBLIC_GA_MEASUREMENT_ID`, `GOOGLE_OAUTH_CLIENT_ID`, `FACEBOOK_APP_ID`
+  - [x] 1.7 Set up project folder structure (`components/`, `lib/`, `types/`, `public/images/`)
+  - [x] 1.8 Configure ESLint and Prettier for code consistency
+  - [x] 1.9 Create `types/landing.ts` with TypeScript interfaces for Feature, Step, FAQ, etc.
+  - [x] 1.10 Update `README.md` with project setup instructions, development commands, and tech stack overview
 
 - [ ] **2.0 Hero Section Implementation (Above the Fold)**
   - [ ] 2.1 Create `components/landing/HeroSection.tsx` component structure
