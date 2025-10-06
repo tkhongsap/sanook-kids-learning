@@ -1,20 +1,19 @@
 import React from 'react';
+import HeroSection from '@/components/landing/HeroSection';
 
 export default function Home() {
   return (
     <main className="min-h-screen">
-      {/* Landing page sections will be implemented in Task 2.0+ */}
-      <div className="container-custom section-padding">
-        <h1 className="text-4xl md:text-6xl font-bold text-center text-primary">
-          Sanook Kids Learning
-        </h1>
-        <p className="text-xl text-center mt-4 text-gray-600">
-          เรียนรู้ในจังหวะของคุณ พิชิตหลักสูตรป.4 และ ป.6
-        </p>
-        <p className="text-center mt-8 text-gray-500">
-          Landing page implementation in progress...
-        </p>
-      </div>
+      <HeroSection />
+      
+      {/* Additional sections will be implemented in Task 3.0+ */}
+      {/* - How It Works Section */}
+      {/* - Features Section */}
+      {/* - For Parents Section */}
+      {/* - Preview/Screenshots Section */}
+      {/* - Final CTA Section */}
+      {/* - FAQ Section */}
+      {/* - Footer */}
     </main>
   );
 }

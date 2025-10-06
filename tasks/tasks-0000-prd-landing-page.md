@@ -74,7 +74,7 @@ Based on PRD requirements for SEO, performance, and mobile-first design, recomme
 
 ## Tasks
 
-- [ ] **1.0 Project Setup & Infrastructure**
+- [x] **1.0 Project Setup & Infrastructure**
   - [x] 1.1 Initialize Next.js 14 project with TypeScript (`npx create-next-app@latest sanook-kids-learning --typescript --tailwind --app --eslint`)
   - [x] 1.2 Install required dependencies: `next`, `react`, `react-dom`, `typescript`, `tailwindcss`, `@types/react`, `@types/node`
   - [x] 1.3 Configure `tailwind.config.ts` with custom colors (Khan Academy-inspired green #14bf96, warm orange, Thai-friendly palette)
@@ -86,17 +86,17 @@ Based on PRD requirements for SEO, performance, and mobile-first design, recomme
   - [x] 1.9 Create `types/landing.ts` with TypeScript interfaces for Feature, Step, FAQ, etc.
   - [x] 1.10 Update `README.md` with project setup instructions, development commands, and tech stack overview
 
-- [ ] **2.0 Hero Section Implementation (Above the Fold)**
-  - [ ] 2.1 Create `components/landing/HeroSection.tsx` component structure
-  - [ ] 2.2 Implement headline: "เรียนรู้ในจังหวะของคุณ พิชิตหลักสูตรป.4 และ ป.6" with large, attention-grabbing typography (FR-2, FR-3)
-  - [ ] 2.3 Add subheadline explaining value proposition in Thai
-  - [ ] 2.4 Create `components/ui/SocialSignInButton.tsx` for Google and Facebook sign-in buttons with official branding
-  - [ ] 2.5 Implement hero image/illustration (placeholder or actual Thai student imagery) with responsive sizing
-  - [ ] 2.6 Add trust badge: "ฟรี ไม่มีค่าใช้จ่าย ตลอดไป" with prominent styling
-  - [ ] 2.7 Ensure entire hero section is visible above the fold on mobile devices (FR-4)
-  - [ ] 2.8 Make hero section fully responsive (mobile: stacked vertical layout, desktop: side-by-side)
-  - [ ] 2.9 Implement CTA button click tracking (prepare event handlers for analytics)
-  - [ ] 2.10 Optimize hero image for performance (use Next.js Image component with WebP format)
+- [x] **2.0 Hero Section Implementation (Above the Fold)**
+  - [x] 2.1 Create `components/landing/HeroSection.tsx` component structure
+  - [x] 2.2 Implement headline: "เรียนรู้ในจังหวะของคุณ พิชิตหลักสูตรป.4 และ ป.6" with large, attention-grabbing typography (FR-2, FR-3)
+  - [x] 2.3 Add subheadline explaining value proposition in Thai
+  - [x] 2.4 Create `components/ui/SocialSignInButton.tsx` for Google and Facebook sign-in buttons with official branding
+  - [x] 2.5 Implement hero image/illustration (placeholder or actual Thai student imagery) with responsive sizing
+  - [x] 2.6 Add trust badge: "ฟรี ไม่มีค่าใช้จ่าย ตลอดไป" with prominent styling
+  - [x] 2.7 Ensure entire hero section is visible above the fold on mobile devices (FR-4)
+  - [x] 2.8 Make hero section fully responsive (mobile: stacked vertical layout, desktop: side-by-side)
+  - [x] 2.9 Implement CTA button click tracking (prepare event handlers for analytics)
+  - [x] 2.10 Optimize hero image for performance (use Next.js Image component with WebP format)
 
 - [ ] **3.0 Core Content Sections Implementation**
   - [ ] 3.1 **How It Works Section:**
