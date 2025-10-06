@@ -145,15 +145,15 @@ Based on PRD requirements for SEO, performance, and mobile-first design, recomme
     - [x] 4.3.5 Optionally add social media link placeholders
     - [x] 4.3.6 Make footer responsive (stack elements vertically on mobile)
 
-- [ ] **5.0 OAuth Integration & CTA Functionality**
-  - [ ] 5.1 Research and plan OAuth integration approach (will connect to PRD 0001 authentication system)
-  - [ ] 5.2 Implement CTA button click handlers to prepare for OAuth flow (FR-19)
-  - [ ] 5.3 Add loading state to CTA buttons when clicked (spinner or "กำลังโหลด..." text) (FR-19)
-  - [ ] 5.4 Create placeholder function for triggering OAuth popup (to be implemented with backend in PRD 0001)
-  - [ ] 5.5 Ensure all CTA buttons throughout the page trigger the same authentication flow (FR-20)
-  - [ ] 5.6 Add error handling for authentication failures (display user-friendly Thai error message)
-  - [ ] 5.7 Test CTA button accessibility (48px height for mobile tap targets) (FR-19, FR-22)
-  - [ ] 5.8 Implement proper Google and Facebook branding guidelines (logos, colors, text)
+- [x] **5.0 OAuth Integration & CTA Functionality**
+  - [x] 5.1 Research and plan OAuth integration approach (will connect to PRD 0001 authentication system)
+  - [x] 5.2 Implement CTA button click handlers to prepare for OAuth flow (FR-19)
+  - [x] 5.3 Add loading state to CTA buttons when clicked (spinner or "กำลังโหลด..." text) (FR-19)
+  - [x] 5.4 Create placeholder function for triggering OAuth popup (to be implemented with backend in PRD 0001)
+  - [x] 5.5 Ensure all CTA buttons throughout the page trigger the same authentication flow (FR-20)
+  - [x] 5.6 Add error handling for authentication failures (display user-friendly Thai error message)
+  - [x] 5.7 Test CTA button accessibility (48px height for mobile tap targets) (FR-19, FR-22)
+  - [x] 5.8 Implement proper Google and Facebook branding guidelines (logos, colors, text)
 
 - [ ] **6.0 Performance Optimization & SEO**
   - [ ] 6.1 **Performance:**
