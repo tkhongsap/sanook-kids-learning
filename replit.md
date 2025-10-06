@@ -37,7 +37,6 @@ Sanook Kids Learning is a free Thai educational platform for Grade 4 (ป.4) and
 ## Project Architecture
 
 ### Tech Stack
-
 - **Framework:** Next.js 15.5.4 (App Router)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
@@ -211,3 +210,4 @@ When ready to deploy:
 ---
 
 Last Updated: October 6, 2025
+

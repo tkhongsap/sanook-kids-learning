@@ -7,6 +7,7 @@
     "dev": "next dev -p 5000",
     "build": "next build",
     "start": "next start -p 5000",
+
     "lint": "next lint"
   },
   "repository": {
