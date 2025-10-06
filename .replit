@@ -46,3 +46,8 @@ outputType = "webview"
 
 [nix]
 channel = "stable-25_05"
+
+[deployment]
+build = ["sh", "-c", "npm run build"]
+run = ["sh", "-c", "npm run start"]
+deploymentTarget = "cloudrun"
