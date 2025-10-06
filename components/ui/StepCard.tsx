@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { StepCardProps } from '@/types/landing';
 
@@ -31,4 +33,3 @@ export default function StepCard({ step, className = '' }: StepCardProps) {
     </div>
   );
 }
-

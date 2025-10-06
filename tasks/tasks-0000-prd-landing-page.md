@@ -124,26 +124,26 @@ Based on PRD requirements for SEO, performance, and mobile-first design, recomme
     - [x] 3.4.4 Implement responsive layout (swipeable carousel on mobile, grid on desktop) (FR-21)
     - [x] 3.4.5 Optimize screenshot images (compress, use WebP format, lazy loading)
 
-- [ ] **4.0 Supporting Sections & Footer**
-  - [ ] 4.1 **Final CTA Section:**
-    - [ ] 4.1.1 Create `components/landing/CTASection.tsx` component
-    - [ ] 4.1.2 Implement large headline: "พร้อมที่จะเริ่มเรียนแล้วหรือยัง?" (FR-15)
-    - [ ] 4.1.3 Add subtext: "ลงทะเบียนฟรี เริ่มเรียนได้ทันที"
-    - [ ] 4.1.4 Include Google and Facebook sign-in buttons (reuse `SocialSignInButton` component)
-    - [ ] 4.1.5 Style with high-contrast, attention-grabbing design
-  - [ ] 4.2 **FAQ Section:**
-    - [ ] 4.2.1 Create `components/landing/FAQSection.tsx` with expandable/collapsible accordion (FR-17)
-    - [ ] 4.2.2 Implement all 5 FAQ questions and answers in Thai (FR-16)
-    - [ ] 4.2.3 Add expand/collapse functionality (can use `useState` for client-side interactivity)
-    - [ ] 4.2.4 Style with clear visual indicators for expanded/collapsed states
-    - [ ] 4.2.5 Ensure keyboard accessibility (Enter key to expand/collapse)
-  - [ ] 4.3 **Footer:**
-    - [ ] 4.3.1 Create `components/landing/Footer.tsx` component
-    - [ ] 4.3.2 Add copyright notice: "© 2025 Sanook Kids Learning" (FR-18)
-    - [ ] 4.3.3 Add placeholder links for Privacy Policy and Terms of Service
-    - [ ] 4.3.4 Add contact information or email (if available)
-    - [ ] 4.3.5 Optionally add social media link placeholders
-    - [ ] 4.3.6 Make footer responsive (stack elements vertically on mobile)
+- [x] **4.0 Supporting Sections & Footer**
+  - [x] 4.1 **Final CTA Section:**
+    - [x] 4.1.1 Create `components/landing/CTASection.tsx` component
+    - [x] 4.1.2 Implement large headline: "พร้อมที่จะเริ่มเรียนแล้วหรือยัง?" (FR-15)
+    - [x] 4.1.3 Add subtext: "ลงทะเบียนฟรี เริ่มเรียนได้ทันที"
+    - [x] 4.1.4 Include Google and Facebook sign-in buttons (reuse `SocialSignInButton` component)
+    - [x] 4.1.5 Style with high-contrast, attention-grabbing design
+  - [x] 4.2 **FAQ Section:**
+    - [x] 4.2.1 Create `components/landing/FAQSection.tsx` with expandable/collapsible accordion (FR-17)
+    - [x] 4.2.2 Implement all 5 FAQ questions and answers in Thai (FR-16)
+    - [x] 4.2.3 Add expand/collapse functionality (can use `useState` for client-side interactivity)
+    - [x] 4.2.4 Style with clear visual indicators for expanded/collapsed states
+    - [x] 4.2.5 Ensure keyboard accessibility (Enter key to expand/collapse)
+  - [x] 4.3 **Footer:**
+    - [x] 4.3.1 Create `components/landing/Footer.tsx` component
+    - [x] 4.3.2 Add copyright notice: "© 2025 Sanook Kids Learning" (FR-18)
+    - [x] 4.3.3 Add placeholder links for Privacy Policy and Terms of Service
+    - [x] 4.3.4 Add contact information or email (if available)
+    - [x] 4.3.5 Optionally add social media link placeholders
+    - [x] 4.3.6 Make footer responsive (stack elements vertically on mobile)
 
 - [ ] **5.0 OAuth Integration & CTA Functionality**
   - [ ] 5.1 Research and plan OAuth integration approach (will connect to PRD 0001 authentication system)

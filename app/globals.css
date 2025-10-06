@@ -6,10 +6,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600;700&family=Kanit:wght@300;400;500;600;700&display=swap');
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-  
   body {
     @apply bg-white text-gray-900 font-sans;
   }

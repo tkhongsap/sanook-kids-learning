@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import StepCard from '@/components/ui/StepCard';
 import Button from '@/components/ui/Button';

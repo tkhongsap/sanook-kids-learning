@@ -16,20 +16,6 @@ const nextConfig = {
     //   },
     // ],
   },
-
-  // i18n configuration for Thai language
-  i18n: {
-    locales: ['th'],
-    defaultLocale: 'th',
-  },
-
-  // Performance optimizations
-  swcMinify: true,
-
-  // Ensure proper font optimization
-  experimental: {
-    optimizeFonts: true,
-  },
 };
 
 module.exports = nextConfig;
