@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { FAQ } from '@/types/landing';
+import { trackFAQInteraction } from '@/lib/analytics';
 
 export default function FAQSection() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -35,6 +36,13 @@ export default function FAQSection() {
   ];
 
   const toggleFAQ = (id: string) => {
+    const isExpanding = expandedId !== id;
+    const faq = faqs.find((f) => f.id === id);
+    
+    if (faq) {
+      trackFAQInteraction(id, faq.question, isExpanding ? 'expand' : 'collapse');
+    }
+    
     setExpandedId(expandedId === id ? null : id);
   };
 

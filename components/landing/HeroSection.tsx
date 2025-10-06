@@ -3,9 +3,15 @@
 import React from 'react';
 import SocialSignInButton from '@/components/ui/SocialSignInButton';
 import { useAuth } from '@/hooks/useAuth';
+import { trackCTAClick } from '@/lib/analytics';
 
 export default function HeroSection() {
   const { loading, error, signIn, clearError } = useAuth();
+
+  const handleSignIn = (provider: 'google' | 'facebook') => {
+    trackCTAClick('hero', provider);
+    signIn(provider);
+  };
 
   return (
     <section className="relative bg-gradient-to-b from-primary-light/10 to-white overflow-hidden">
@@ -40,12 +46,12 @@ export default function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
               <SocialSignInButton
                 provider="google"
-                onClick={() => signIn('google')}
+                onClick={() => handleSignIn('google')}
                 loading={loading.google}
               />
               <SocialSignInButton
                 provider="facebook"
-                onClick={() => signIn('facebook')}
+                onClick={() => handleSignIn('facebook')}
                 loading={loading.facebook}
               />
             </div>

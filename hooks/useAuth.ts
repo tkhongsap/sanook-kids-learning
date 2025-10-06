@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { initiateOAuthSignIn, getAuthErrorMessage, type AuthProvider, type AuthError } from '@/lib/auth';
+import { trackSignUpStarted, trackSignUpCompleted, trackError } from '@/lib/analytics';
 
 export interface UseAuthReturn {
   loading: { google: boolean; facebook: boolean };
@@ -38,10 +39,14 @@ export function useAuth(): UseAuthReturn {
     }
 
     try {
+      // Track sign-up started event
+      trackSignUpStarted(provider);
+
       // Initiate OAuth sign-in flow
       await initiateOAuthSignIn(provider);
 
-      // Log success event (will integrate with analytics in Task 7.0)
+      // Track successful sign-up
+      trackSignUpCompleted(provider);
       console.log(`[Auth Hook] Sign-in successful with ${provider}`);
 
       // TODO: In PRD 0001, redirect to dashboard after successful auth
@@ -61,8 +66,8 @@ export function useAuth(): UseAuthReturn {
       // Set user-friendly error message in Thai
       setError(getAuthErrorMessage(authError));
 
-      // Log error event (will integrate with analytics in Task 7.0)
-      console.log('[Auth Hook] Error event would be tracked here');
+      // Track error event
+      trackError(authError.code, authError.message, provider);
 
     } finally {
       // Clear loading state

@@ -155,40 +155,40 @@ Based on PRD requirements for SEO, performance, and mobile-first design, recomme
   - [x] 5.7 Test CTA button accessibility (48px height for mobile tap targets) (FR-19, FR-22)
   - [x] 5.8 Implement proper Google and Facebook branding guidelines (logos, colors, text)
 
-- [ ] **6.0 Performance Optimization & SEO**
-  - [ ] 6.1 **Performance:**
-    - [ ] 6.1.1 Optimize all images (convert to WebP format with JPEG fallback) (FR-25)
-    - [ ] 6.1.2 Implement lazy loading for below-the-fold images (screenshots, features icons) (FR-25)
-    - [ ] 6.1.3 Configure Next.js Image component for all images with proper sizes and priority settings
-    - [ ] 6.1.4 Inline critical CSS for above-the-fold content (hero section) (FR-26)
-    - [ ] 6.1.5 Defer or async load all non-critical JavaScript (FR-27)
-    - [ ] 6.1.6 Run Lighthouse audit and optimize for >90 performance score (FR-24, target <2 sec load)
-    - [ ] 6.1.7 Enable browser caching in `next.config.js`
-    - [ ] 6.1.8 Minify CSS and JavaScript (handled by Next.js build, verify)
-  - [ ] 6.2 **SEO:**
-    - [ ] 6.2.1 Add proper metadata in `app/layout.tsx`: title, description, Open Graph tags (FR-28)
-    - [ ] 6.2.2 Set page title: "Sanook Kids Learning - เรียนฟรี ป.4 และ ป.6 คณิตศาสตร์ วิทยาศาสตร์"
-    - [ ] 6.2.3 Write compelling meta description (150-160 characters in Thai, keyword-rich)
-    - [ ] 6.2.4 Add Open Graph tags for social sharing (og:title, og:description, og:image, og:url)
-    - [ ] 6.2.5 Set Thai language tag: `<html lang="th">` in `app/layout.tsx`
-    - [ ] 6.2.6 Ensure semantic HTML structure with proper heading hierarchy (H1 → H2 → H3) (FR-29)
-    - [ ] 6.2.7 Add schema.org markup for Educational Organization (JSON-LD) (FR-30)
-    - [ ] 6.2.8 Add alt text in Thai for all images (FR-28, accessibility requirement)
-    - [ ] 6.2.9 Create `public/robots.txt` allowing indexing
-    - [ ] 6.2.10 Create `app/sitemap.ts` for XML sitemap generation
-    - [ ] 6.2.11 Add favicon and app icons in `public/` directory
+- [x] **6.0 Performance Optimization & SEO**
+  - [x] 6.1 **Performance:**
+    - [x] 6.1.1 Optimize all images (convert to WebP format with JPEG fallback) (FR-25)
+    - [x] 6.1.2 Implement lazy loading for below-the-fold images (screenshots, features icons) (FR-25)
+    - [x] 6.1.3 Configure Next.js Image component for all images with proper sizes and priority settings
+    - [x] 6.1.4 Inline critical CSS for above-the-fold content (hero section) (FR-26)
+    - [x] 6.1.5 Defer or async load all non-critical JavaScript (FR-27)
+    - [x] 6.1.6 Run Lighthouse audit and optimize for >90 performance score (FR-24, target <2 sec load)
+    - [x] 6.1.7 Enable browser caching in `next.config.js`
+    - [x] 6.1.8 Minify CSS and JavaScript (handled by Next.js build, verify)
+  - [x] 6.2 **SEO:**
+    - [x] 6.2.1 Add proper metadata in `app/layout.tsx`: title, description, Open Graph tags (FR-28)
+    - [x] 6.2.2 Set page title: "Sanook Kids Learning - เรียนฟรี ป.4 และ ป.6 คณิตศาสตร์ วิทยาศาสตร์"
+    - [x] 6.2.3 Write compelling meta description (150-160 characters in Thai, keyword-rich)
+    - [x] 6.2.4 Add Open Graph tags for social sharing (og:title, og:description, og:image, og:url)
+    - [x] 6.2.5 Set Thai language tag: `<html lang="th">` in `app/layout.tsx`
+    - [x] 6.2.6 Ensure semantic HTML structure with proper heading hierarchy (H1 → H2 → H3) (FR-29)
+    - [x] 6.2.7 Add schema.org markup for Educational Organization (JSON-LD) (FR-30)
+    - [x] 6.2.8 Add alt text in Thai for all images (FR-28, accessibility requirement)
+    - [x] 6.2.9 Create `public/robots.txt` allowing indexing
+    - [x] 6.2.10 Create `app/sitemap.ts` for XML sitemap generation
+    - [x] 6.2.11 Add favicon and app icons in `public/` directory
 
-- [ ] **7.0 Analytics Integration & Tracking**
-  - [ ] 7.1 Install Google Analytics 4 by adding gtag script to `app/layout.tsx`
-  - [ ] 7.2 Create `lib/analytics.ts` with utility functions for tracking events
-  - [ ] 7.3 Create `components/analytics/GAScript.tsx` component to load GA4 script
-  - [ ] 7.4 Implement page view tracking (automatic in GA4, verify)
-  - [ ] 7.5 Implement event tracking for all CTA clicks (Hero CTA, Secondary CTA, Final CTA)
-  - [ ] 7.6 Implement scroll depth tracking (track when users reach Features section, For Parents section, Footer)
-  - [ ] 7.7 Track FAQ item expansion events
-  - [ ] 7.8 Track sign-up flow events: "Sign-up Started" when OAuth popup opens (prepare for integration)
-  - [ ] 7.9 Test analytics in development environment (use GA4 DebugView)
-  - [ ] 7.10 Document all tracked events in `docs/analytics-events.md` for reference
+- [x] **7.0 Analytics Integration & Tracking**
+  - [x] 7.1 Install Google Analytics 4 by adding gtag script to `app/layout.tsx`
+  - [x] 7.2 Create `lib/analytics.ts` with utility functions for tracking events
+  - [x] 7.3 Create `components/analytics/GAScript.tsx` component to load GA4 script
+  - [x] 7.4 Implement page view tracking (automatic in GA4, verify)
+  - [x] 7.5 Implement event tracking for all CTA clicks (Hero CTA, Secondary CTA, Final CTA)
+  - [x] 7.6 Implement scroll depth tracking (track when users reach Features section, For Parents section, Footer)
+  - [x] 7.7 Track FAQ item expansion events
+  - [x] 7.8 Track sign-up flow events: "Sign-up Started" when OAuth popup opens (prepare for integration)
+  - [x] 7.9 Test analytics in development environment (use GA4 DebugView)
+  - [x] 7.10 Document all tracked events in `docs/analytics-events.md` for reference
 
 - [ ] **8.0 Testing & Quality Assurance**
   - [ ] 8.1 **Manual Testing:**

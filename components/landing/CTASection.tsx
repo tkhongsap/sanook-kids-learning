@@ -3,9 +3,15 @@
 import React from 'react';
 import SocialSignInButton from '@/components/ui/SocialSignInButton';
 import { useAuth } from '@/hooks/useAuth';
+import { trackCTAClick } from '@/lib/analytics';
 
 export default function CTASection() {
   const { loading, error, signIn, clearError } = useAuth();
+
+  const handleSignIn = (provider: 'google' | 'facebook') => {
+    trackCTAClick('final_cta', provider);
+    signIn(provider);
+  };
 
   return (
     <section className="relative bg-gradient-to-br from-primary to-primary-dark text-white section-padding overflow-hidden">
@@ -51,13 +57,13 @@ export default function CTASection() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <SocialSignInButton
               provider="google"
-              onClick={() => signIn('google')}
+              onClick={() => handleSignIn('google')}
               loading={loading.google}
               className="shadow-xl hover:shadow-2xl"
             />
             <SocialSignInButton
               provider="facebook"
-              onClick={() => signIn('facebook')}
+              onClick={() => handleSignIn('facebook')}
               loading={loading.facebook}
               className="shadow-xl hover:shadow-2xl"
             />
