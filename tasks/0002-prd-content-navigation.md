@@ -160,6 +160,12 @@ Grade Level (ป.4 or ป.6)
 - Subject Page: Grid of unit cards like Khan Academy's course page
 - Unit Page: Left sidebar lesson list like Khan Academy's unit view
 
+**Khan Academy UI Examples to Study:**
+- [Khan Academy Course Page](https://www.khanacademy.org/math/arithmetic): Note the clean card grid, progress circles, and clear unit organization
+- [Khan Academy Unit Page](https://www.khanacademy.org/): Observe the left sidebar navigation with lesson list, progress indicators, and focused content area
+- Color scheme: Khan Academy uses #14bf96 (teal) for primary actions and progress - consider similar Thai-friendly colors
+- Typography: Large, readable fonts (16-18px for body text, 24-32px for headers)
+
 ### Accessibility
 
 - All navigation must be keyboard accessible (Tab, Enter, Escape keys)

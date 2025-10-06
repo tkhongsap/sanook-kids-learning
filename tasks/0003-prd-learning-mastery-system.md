@@ -150,6 +150,38 @@ This is the core learning experience of Sanook Kids Learning. This feature defin
 - Note-taking functionality during video watching
 - Video transcripts or subtitles (future accessibility feature)
 
+### Future Enhancements (V2+) - Inspired by Khan Academy
+
+The following features are explicitly out of scope for V1 but should be considered for future releases to match Khan Academy's effectiveness:
+
+**Hints System:**
+- Progressive hints during practice (1-3 hints per question)
+- First hint: General guidance ("Think about what operation to use")
+- Final hint: Step-by-step walkthrough
+- *Khan Academy Reference:* See how [Khan Academy provides hints](https://www.khanacademy.org/) that scaffold learning without giving away answers
+
+**Related Video Clips:**
+- "Watch a video about this" button when student gets stuck
+- Deep links to specific timestamps in the lesson video
+- Short 30-60 second refresher clips for specific concepts
+
+**Multiple Question Types:**
+- Numeric input (type the answer)
+- Drag-and-drop elements
+- Fill-in-the-blank
+- Drawing/graphing tools for math problems
+- *This significantly increases engagement and assesses deeper understanding*
+
+**Scratchpad/Calculator:**
+- Digital scratchpad for working out problems
+- Basic calculator tool (especially for complex arithmetic)
+- *Mirrors how students work on paper but keeps them in the app*
+
+**Question Explanations:**
+- Detailed explanation shown after each answer (correct or incorrect)
+- Helps students understand *why* an answer is correct
+- Could include mini-video explanations for complex questions
+
 ## 6. Design Considerations
 
 ### UI/UX Requirements - Khan Academy Inspired
@@ -188,6 +220,36 @@ This is the core learning experience of Sanook Kids Learning. This feature defin
 - Video player must support keyboard controls
 - Answer buttons must be keyboard accessible
 - Screen reader support for feedback messages
+
+### Content Creation Guidance (Video Production)
+
+To ensure videos are effective and aligned with Khan Academy's proven approach:
+
+**Instructor Voice & Delivery:**
+- Warm, encouraging tone (not overly excited or monotone)
+- Speaking pace: Moderate, with natural pauses for comprehension
+- Use Thai colloquial expressions familiar to Grade 4-6 students
+- Avoid formal/academic language that might intimidate young learners
+
+**Visual Style - "Digital Blackboard":**
+- Dark background (black or dark blue) with bright colors for writing
+- Hand-drawn explanations as concepts are narrated (like Khan Academy)
+- Use multiple colors to differentiate concepts (e.g., blue for problems, green for solutions)
+- Simple, clear handwriting/drawings (not overly artistic)
+
+**Content Structure:**
+- Start with a real-world Thai example or question
+- Break down concept into 2-3 key steps
+- Include pause points (2-3 seconds) after introducing new concepts
+- End with a brief recap: "สรุปคือ..." (In summary...)
+- Connect to Thai cultural context where possible (e.g., use baht for money problems)
+
+**Technical Quality:**
+- Clear audio (no background noise)
+- Consistent volume throughout
+- Visual clarity (writing must be easily readable on mobile screens)
+
+**Khan Academy Reference:** Study [Khan Academy's math videos](https://www.khanacademy.org/math) for the "blackboard" style, pacing, and voice characteristics.
 
 ## 7. Technical Considerations
 

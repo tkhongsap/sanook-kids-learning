@@ -136,6 +136,36 @@ This feature implements a comprehensive progress tracking system that saves all 
 - Progress notifications or reminders
 - Historical progress graphs or charts
 
+### Future Enhancements (V2+) - Advanced Progress Features
+
+The following features are inspired by Khan Academy's advanced progress tracking and should be considered for future releases:
+
+**Mastery Decay & Spaced Repetition:**
+- Khan Academy implements a "skill decay" system where mastery levels decrease over time without practice
+- Mastery levels: Attempted → Familiar → Proficient → Mastered
+- Skills practiced recently are "stronger" than those learned months ago
+- System recommends reviewing older content to maintain mastery
+- *Educational Benefit:* Encourages spaced repetition, proven to improve long-term retention
+- *Recommendation:* Consider implementing in V2 or V3 to encourage consistent practice
+
+**Learning Streaks:**
+- Daily practice streaks (similar to Duolingo/Khan Academy)
+- "You've practiced 5 days in a row!" motivational messages
+- Freeze days to maintain streaks during school breaks
+
+**Detailed Analytics:**
+- Time spent per lesson/unit
+- Accuracy trends over time
+- Areas needing improvement (frequently missed topics)
+- Learning pace visualization
+
+**Goal Setting:**
+- Weekly learning goals (e.g., "Master 3 lessons this week")
+- Progress towards grade-level completion
+- Customizable targets
+
+**Khan Academy Reference:** Study [Khan Academy's learner home page](https://www.khanacademy.org/learn) to see how they display skills at different mastery levels and recommend what to practice next.
+
 ## 6. Design Considerations
 
 ### Visual Design - Khan Academy Inspired

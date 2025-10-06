@@ -119,6 +119,30 @@ This feature enables users to sign up and sign in to the Sanook Kids Learning pl
 - Must work on desktop, tablet, and mobile devices
 - Touch targets must be at least 44x44px for mobile usability
 
+### Khan Academy Onboarding Reference
+
+Study Khan Academy's sign-up and onboarding experience for best practices:
+
+**Landing Page:**
+- [Khan Academy Homepage](https://www.khanacademy.org/): Note the clear value proposition and prominent sign-up CTA
+- Clean, trustworthy design that appeals to both parents and students
+- Social proof elements (if applicable: "Join 100,000+ Thai students learning...")
+
+**Sign-In Flow:**
+- Khan Academy uses Google/Facebook/Apple sign-in options prominently
+- Simple, one-click authentication reduces friction
+- Clear privacy messaging to build trust
+
+**Grade/Level Selection:**
+- Khan Academy asks "What would you like to learn?" with clear visual options
+- Large cards with icons make selection easy and engaging
+- Consider adding brief descriptions (e.g., "ป.4: อายุ 9-10 ปี, คณิตศาสตร์และวิทยาศาสตร์")
+
+**First-Time User Experience:**
+- After sign-up, immediate value: show the dashboard with available content
+- Optional: Brief 3-step walkthrough (skip-able) explaining how to use the platform
+- Welcoming message: "ยินดีต้อนรับ [Name]! มาเริ่มเรียนกันเลย" (Welcome [Name]! Let's start learning)
+
 ## 7. Technical Considerations
 
 ### Integration Points
