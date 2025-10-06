@@ -4,9 +4,9 @@
   "description": "Sanook Kids Learning - Free educational platform for Thai Grade 4 and Grade 6 students",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 5000 -H 0.0.0.0",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 5000 -H 0.0.0.0",
     "lint": "next lint"
   },
   "repository": {
