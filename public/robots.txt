@@ -1,0 +1,12 @@
+# robots.txt for Sanook Kids Learning
+
+User-agent: *
+Allow: /
+
+# Disallow admin or authentication pages (will be added in PRD 0001)
+# Disallow: /dashboard/
+# Disallow: /api/
+
+# Sitemap
+Sitemap: https://sanook-kids-learning.vercel.app/sitemap.xml
+
