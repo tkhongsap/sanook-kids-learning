@@ -1,89 +1,213 @@
-# Sanook Kids Learning - Replit Project Documentation
+# Sanook Kids Learning - Project Documentation
 
 ## Overview
-Free educational platform for Thai Grade 4 and Grade 6 students to learn Math and Science. Built with Next.js 15, React 19, TypeScript, and Tailwind CSS.
+
+Sanook Kids Learning is a free Thai educational platform for Grade 4 (ป.4) and Grade 6 (ป.6) students. The platform provides math and science education through short videos and interactive exercises, all in Thai language.
+
+**Current Status:** User authentication system complete and ready for testing.
+
+---
 
 ## Recent Changes
 
-### October 6, 2025 - Vercel to Replit Migration
-Successfully migrated the project from Vercel to Replit with the following changes:
+### October 6, 2025 - User Authentication System Complete (PRD 0001)
 
-1. **Port Configuration**: Updated dev and start scripts to bind to `0.0.0.0:5000` for Replit compatibility
-2. **Cache Headers**: Added `no-cache` headers for HTML pages in `next.config.js` to prevent iframe caching issues
-3. **Missing Files**: Created `lib/analytics.ts` and `lib/auth.ts` with placeholder implementations
-   - Analytics: Tracks user events with Google Analytics 4 (console fallback when GA not configured)
-   - Auth: Placeholder OAuth implementation (to be fully implemented in PRD 0001)
-4. **Dependencies**: Installed all npm packages (388 packages, 0 vulnerabilities)
-5. **Workflow**: Configured development server to run on port 5000
-6. **Deployment**: Set up autoscale deployment configuration
+✅ **Completed Features:**
+- Google OAuth sign-in with NextAuth.js v5
+- Grade selection onboarding for new users (ป.4 or ป.6)
+- Protected dashboard with user welcome and grade display
+- Session management with JWT (30-day persistence)
+- Logout functionality
+- Route protection middleware
+- Thai language UI throughout
+
+**Note:** Facebook OAuth was skipped per user request. Infrastructure in place to add it later.
+
+---
+
+## User Preferences
+
+- **Language:** All UI text must be in Thai
+- **Authentication:** Google OAuth only for now, Facebook to be added later
+- **Design:** Clean, mobile-first design with Tailwind CSS
+- **Target Users:** Thai students in Grade 4 (ป.4) and Grade 6 (ป.6)
+
+---
 
 ## Project Architecture
 
 ### Tech Stack
-- **Framework**: Next.js 15.5.4 with App Router
-- **UI**: React 19.2.0, TypeScript 5.9.3
-- **Styling**: Tailwind CSS 3.4.18
-- **Language**: Thai (primary) with English fallbacks
+- **Framework:** Next.js 15.5.4 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Authentication:** NextAuth.js v5 (Auth.js)
+- **Database:** Replit PostgreSQL (Neon-backed) with Prisma ORM
+- **Analytics:** Google Analytics 4 (placeholder, not configured yet)
 
-### Directory Structure
+### Key Files & Structure
+
 ```
-├── app/              # Next.js app router pages
-├── components/       # React components
-│   ├── analytics/   # Google Analytics integration
-│   ├── landing/     # Landing page sections
-│   └── ui/          # Reusable UI components
-├── hooks/           # Custom React hooks
-├── lib/             # Utility libraries (analytics, auth)
-├── types/           # TypeScript type definitions
-├── tasks/           # PRD task documentation
-└── public/          # Static assets
+/
+├── auth.ts                          # NextAuth configuration
+├── middleware.ts                    # Route protection and redirects
+├── prisma/
+│   └── schema.prisma               # Database schema with User model
+├── lib/
+│   ├── db.ts                       # Prisma client singleton
+│   ├── session.ts                  # Server-side session helper
+│   └── auth.ts                     # OAuth sign-in wrapper
+├── hooks/
+│   └── useAuth.ts                  # Client-side auth hook
+├── app/
+│   ├── page.tsx                    # Landing page
+│   ├── layout.tsx                  # Root layout with SessionProvider
+│   ├── api/
+│   │   ├── auth/[...nextauth]/route.ts  # NextAuth API route
+│   │   └── user/grade/route.ts     # Grade update API
+│   ├── auth/
+│   │   └── grade-selection/page.tsx # Grade onboarding screen
+│   └── dashboard/
+│       ├── layout.tsx              # Dashboard layout with nav
+│       └── page.tsx                # Dashboard home
+├── components/
+│   ├── landing/                    # Landing page sections
+│   ├── dashboard/
+│   │   └── DashboardNav.tsx       # Dashboard navigation with logout
+│   └── providers/
+│       └── SessionProvider.tsx    # NextAuth session wrapper
+└── tasks/
+    └── tasks-0001-prd-user-authentication.md  # PRD task tracker
 ```
 
-### Key Features (Current)
-- ✅ Landing page with Thai content
-- ✅ Google Analytics 4 integration (optional)
-- ✅ OAuth sign-in UI (Google & Facebook)
-- ⏳ Full authentication (PRD 0001 - not yet implemented)
-- ⏳ Learning content (PRD 0002-0004)
+### Database Schema
 
-## Environment Variables
+**User Model:**
+- `id`: String (cuid)
+- `email`: String (unique, required)
+- `name`: String (optional)
+- `image`: String (optional) 
+- `gradeLevel`: Enum (GRADE_4 | GRADE_6, optional)
+- `provider`: Enum (GOOGLE | FACEBOOK)
+- `providerId`: String (unique)
+- `createdAt`: DateTime
+- `updatedAt`: DateTime
 
-### Optional (for production)
-- `NEXT_PUBLIC_GA_MEASUREMENT_ID`: Google Analytics 4 Measurement ID
-- `NEXT_PUBLIC_SITE_URL`: Public URL of the site (for SEO/sitemap)
+### Authentication Flow
 
-### Future (PRD 0001)
-- `GOOGLE_OAUTH_CLIENT_ID`: Google OAuth credentials
-- `GOOGLE_OAUTH_CLIENT_SECRET`: Google OAuth credentials
-- `FACEBOOK_APP_ID`: Facebook OAuth credentials
-- `FACEBOOK_APP_SECRET`: Facebook OAuth credentials
+1. **New User:**
+   - Landing page → Click "ลงชื่อเข้าใช้ด้วย Google"
+   - Google OAuth consent screen
+   - Callback → `/auth/grade-selection` (new user)
+   - Select grade (ป.4 or ป.6)
+   - Redirect to `/dashboard`
 
-## Development
+2. **Returning User:**
+   - Landing page → Auto-redirect to `/dashboard` (if authenticated and has grade)
+   - Dashboard displays: "ยินดีต้อนรับ {name}! คุณกำลังเรียนชั้น {grade}"
 
-### Running Locally
+3. **Logout:**
+   - Click "ออกจากระบบ" button in dashboard nav
+   - Session cleared → Redirect to landing page
+
+### Route Protection (Middleware)
+
+- `/` - Public (redirects to dashboard if authenticated)
+- `/dashboard` - Protected (requires auth + gradeLevel)
+- `/auth/grade-selection` - Protected (requires auth, no grade yet)
+- All other routes - Public
+
+### Environment Variables
+
+**Required Secrets (configured in Replit Secrets):**
+- `GOOGLE_CLIENT_ID` - Google OAuth client ID
+- `GOOGLE_CLIENT_SECRET` - Google OAuth client secret
+- `NEXTAUTH_SECRET` - NextAuth encryption secret
+- `NEXTAUTH_URL` - OAuth callback URL (Replit domain)
+- `DATABASE_URL` - PostgreSQL connection string (auto-configured)
+
+---
+
+## Known Issues / TODO
+
+### Immediate Items
+- None - authentication system is complete and approved by architect
+
+### Future Enhancements (Next PRDs)
+- Add Facebook OAuth support when requested
+- Build content navigation for math and science lessons
+- Add progress tracking
+- Implement video player and exercises
+- Parent dashboard for monitoring progress
+
+---
+
+## Development Commands
+
 ```bash
-npm run dev    # Development server on port 5000
-npm run build  # Production build
-npm run start  # Production server on port 5000
+# Start dev server
+npm run dev
+
+# Database commands
+npm run db:push        # Push Prisma schema changes to database
+npm run db:push --force # Force push (use if data loss warning)
+
+# Code quality
+npm run lint          # Run ESLint
+npm run type-check    # Run TypeScript compiler
 ```
 
-### Deployment
-- **Type**: Autoscale (stateless web app)
-- **Build**: `npm run build`
-- **Start**: `npm run start`
-- **Port**: 5000 (configured for Replit)
+---
 
-## User Preferences
-- None documented yet
+## Testing Notes
 
-## Known Issues
-- OAuth authentication is not yet implemented (placeholder in `lib/auth.ts`)
-- Shows user-friendly error messages in Thai when sign-in is attempted
-- This is intentional and will be implemented in PRD 0001
+### Manual Testing Checklist
+- [ ] Google OAuth sign-in flow (new user)
+- [ ] Grade selection saves correctly
+- [ ] Dashboard displays user info and grade
+- [ ] Logout clears session
+- [ ] Returning user auto-redirects to dashboard
+- [ ] Protected routes redirect unauthenticated users
+- [ ] Thai text displays correctly on all devices
+- [ ] Mobile responsive design works
 
-## Next Steps
-See tasks/ directory for detailed PRDs:
-- PRD 0001: User Authentication System
-- PRD 0002: Content Navigation
-- PRD 0003: Learning Mastery System
-- PRD 0004: Progress Tracking
+### OAuth Testing
+**Callback URL:** Use your Replit domain from `env | grep DOMAIN`  
+Example: `https://xxx-xxx.replit.dev/api/auth/callback/google`
+
+---
+
+## Design System
+
+### Colors
+- **Primary:** `#10B981` (Green - math/science)
+- **Secondary:** `#F59E0B` (Orange - energy/fun)
+- **Primary Light:** `#D1FAE5`
+- **Secondary Light:** `#FEF3C7`
+
+### Typography
+- **Headings:** Bold, large sizes for Thai text readability
+- **Body:** Text-lg (18px) for comfortable reading
+- **Language:** All UI text in Thai
+
+### Components
+- Buttons: Large, rounded, with clear Thai labels
+- Cards: Rounded corners, shadows, ample padding
+- Navigation: Sticky top bar with logout in top-right
+- Mobile-first: All components responsive
+
+---
+
+## Deployment Notes
+
+**Not yet deployed to production.**
+
+When ready to deploy:
+1. Configure production secrets in Replit
+2. Update `NEXTAUTH_URL` to production domain
+3. Update Google OAuth callback URLs
+4. Test full authentication flow in production
+
+---
+
+Last Updated: October 6, 2025
+

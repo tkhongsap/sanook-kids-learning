@@ -1,9 +1,25 @@
-modules = ["nodejs-20", "web"]
+
+modules = ["nodejs-20"]
+
+[[ports]]
+localPort = 3000
+externalPort = 3000
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[[ports]]
+localPort = 28206
+externalPort = 3001
+exposeLocalhost = true
+
+[[ports]]
+localPort = 40851
+externalPort = 3002
+
 [agent]
 expertMode = true
-
-[nix]
-channel = "stable-25_05"
 
 [workflows]
 runButton = "Project"
@@ -15,10 +31,12 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Server"
+
+args = "Next.js Dev Server"
 
 [[workflows.workflow]]
-name = "Server"
+name = "Next.js Dev Server"
+
 author = "agent"
 
 [[workflows.workflow.tasks]]
@@ -29,11 +47,11 @@ waitForPort = 5000
 [workflows.workflow.metadata]
 outputType = "webview"
 
-[[ports]]
-localPort = 5000
-externalPort = 80
+[nix]
+channel = "stable-25_05"
 
 [deployment]
-deploymentTarget = "autoscale"
-run = ["npm", "run", "start"]
-build = ["npm", "run", "build"]
+build = ["sh", "-c", "npm run build"]
+run = ["sh", "-c", "npm run start"]
+deploymentTarget = "cloudrun"
+

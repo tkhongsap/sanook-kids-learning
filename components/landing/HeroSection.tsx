@@ -8,7 +8,7 @@ import { trackCTAClick } from '@/lib/analytics';
 export default function HeroSection() {
   const { loading, error, signIn, clearError } = useAuth();
 
-  const handleSignIn = (provider: 'google' | 'facebook') => {
+  const handleSignIn = (provider: 'google') => {
     trackCTAClick('hero', provider);
     signIn(provider);
   };
@@ -47,12 +47,7 @@ export default function HeroSection() {
               <SocialSignInButton
                 provider="google"
                 onClick={() => handleSignIn('google')}
-                loading={loading.google}
-              />
-              <SocialSignInButton
-                provider="facebook"
-                onClick={() => handleSignIn('facebook')}
-                loading={loading.facebook}
+                loading={loading}
               />
             </div>
 
