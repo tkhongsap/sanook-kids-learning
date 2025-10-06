@@ -59,13 +59,11 @@ export default function SocialSignInButton({
   loading = false,
   className = '',
 }: SocialSignInButtonProps) {
-  const style = providerStyles[provider];
+  const fallbackProvider: ProviderKey = 'google';
+  const style = providerStyles[provider] ?? providerStyles[fallbackProvider];
 
-  if (!style) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.warn(`[SocialSignInButton] Unsupported provider received: ${provider}`);
-    }
-    return null;
+  if (process.env.NODE_ENV !== 'production' && !providerStyles[provider]) {
+    console.warn(`[SocialSignInButton] Unsupported provider received: ${provider}`);
   }
 
   const buttonClasses = [
@@ -81,7 +79,10 @@ export default function SocialSignInButton({
     className,
   ]
     .filter(Boolean)
-    .join(' ');
+    .map((token) => token.trim())
+    .join(' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 
   return (
     <button
