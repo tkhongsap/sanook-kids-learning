@@ -98,31 +98,31 @@ Based on PRD requirements for SEO, performance, and mobile-first design, recomme
   - [x] 2.9 Implement CTA button click tracking (prepare event handlers for analytics)
   - [x] 2.10 Optimize hero image for performance (use Next.js Image component with WebP format)
 
-- [ ] **3.0 Core Content Sections Implementation**
-  - [ ] 3.1 **How It Works Section:**
-    - [ ] 3.1.1 Create `components/landing/HowItWorksSection.tsx` component
-    - [ ] 3.1.2 Implement 3-step layout with icons: 1) ลงทะเบียนฟรี, 2) เลือกชั้นเรียน, 3) เริ่มเรียน (FR-5)
-    - [ ] 3.1.3 Create `components/ui/StepCard.tsx` for individual step cards with number, icon, title, description (FR-6)
-    - [ ] 3.1.4 Add secondary CTA button: "เริ่มเรียนเลย" after the 3 steps (FR-7)
-    - [ ] 3.1.5 Make section responsive (3 columns on desktop, stacked on mobile)
-  - [ ] 3.2 **Key Features Section:**
-    - [ ] 3.2.1 Create `components/landing/FeaturesSection.tsx` component
-    - [ ] 3.2.2 Create `components/ui/FeatureCard.tsx` for individual feature cards (icon + title + description) (FR-9)
-    - [ ] 3.2.3 Implement all 6 features with Thai text and icons: Curriculum-aligned, Mastery learning, Short videos, Unlimited practice, Progress tracking, 100% Free (FR-8)
-    - [ ] 3.2.4 Source or create 6 SVG icons for each feature
-    - [ ] 3.2.5 Implement grid layout (3 columns on desktop, 2 on tablet, 1 on mobile) (FR-21)
-  - [ ] 3.3 **For Parents Section:**
-    - [ ] 3.3.1 Create `components/landing/ForParentsSection.tsx` component
-    - [ ] 3.3.2 Add section header: "สำหรับผู้ปกครอง" (For Parents) (FR-10)
-    - [ ] 3.3.3 Implement 4 key parent messages in Thai (FR-11)
-    - [ ] 3.3.4 Add trust signals: Ministry of Education alignment, PDPA compliance, device accessibility (FR-12)
-    - [ ] 3.3.5 Style with credibility-focused design (blue trust colors, professional typography)
-  - [ ] 3.4 **Preview/Screenshots Section:**
-    - [ ] 3.4.1 Create `components/landing/PreviewSection.tsx` component
-    - [ ] 3.4.2 Prepare 3 high-quality screenshots: Dashboard, Lesson page, Progress tracking (FR-13)
-    - [ ] 3.4.3 Add Thai captions for each screenshot (FR-14)
-    - [ ] 3.4.4 Implement responsive layout (swipeable carousel on mobile, grid on desktop) (FR-21)
-    - [ ] 3.4.5 Optimize screenshot images (compress, use WebP format, lazy loading)
+- [x] **3.0 Core Content Sections Implementation**
+  - [x] 3.1 **How It Works Section:**
+    - [x] 3.1.1 Create `components/landing/HowItWorksSection.tsx` component
+    - [x] 3.1.2 Implement 3-step layout with icons: 1) ลงทะเบียนฟรี, 2) เลือกชั้นเรียน, 3) เริ่มเรียน (FR-5)
+    - [x] 3.1.3 Create `components/ui/StepCard.tsx` for individual step cards with number, icon, title, description (FR-6)
+    - [x] 3.1.4 Add secondary CTA button: "เริ่มเรียนเลย" after the 3 steps (FR-7)
+    - [x] 3.1.5 Make section responsive (3 columns on desktop, stacked on mobile)
+  - [x] 3.2 **Key Features Section:**
+    - [x] 3.2.1 Create `components/landing/FeaturesSection.tsx` component
+    - [x] 3.2.2 Create `components/ui/FeatureCard.tsx` for individual feature cards (icon + title + description) (FR-9)
+    - [x] 3.2.3 Implement all 6 features with Thai text and icons: Curriculum-aligned, Mastery learning, Short videos, Unlimited practice, Progress tracking, 100% Free (FR-8)
+    - [x] 3.2.4 Source or create 6 SVG icons for each feature
+    - [x] 3.2.5 Implement grid layout (3 columns on desktop, 2 on tablet, 1 on mobile) (FR-21)
+  - [x] 3.3 **For Parents Section:**
+    - [x] 3.3.1 Create `components/landing/ForParentsSection.tsx` component
+    - [x] 3.3.2 Add section header: "สำหรับผู้ปกครอง" (For Parents) (FR-10)
+    - [x] 3.3.3 Implement 4 key parent messages in Thai (FR-11)
+    - [x] 3.3.4 Add trust signals: Ministry of Education alignment, PDPA compliance, device accessibility (FR-12)
+    - [x] 3.3.5 Style with credibility-focused design (blue trust colors, professional typography)
+  - [x] 3.4 **Preview/Screenshots Section:**
+    - [x] 3.4.1 Create `components/landing/PreviewSection.tsx` component
+    - [x] 3.4.2 Prepare 3 high-quality screenshots: Dashboard, Lesson page, Progress tracking (FR-13)
+    - [x] 3.4.3 Add Thai captions for each screenshot (FR-14)
+    - [x] 3.4.4 Implement responsive layout (swipeable carousel on mobile, grid on desktop) (FR-21)
+    - [x] 3.4.5 Optimize screenshot images (compress, use WebP format, lazy loading)
 
 - [ ] **4.0 Supporting Sections & Footer**
   - [ ] 4.1 **Final CTA Section:**
