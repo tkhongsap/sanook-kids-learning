@@ -58,32 +58,33 @@
 ## Tasks
 
 - [ ] **1.0 Database Setup & User Schema**
-  - [ ] 1.1 Install Prisma and database dependencies (`npm install prisma @prisma/client`, `npm install -D prisma`)
-  - [ ] 1.2 Initialize Prisma (`npx prisma init`)
-  - [ ] 1.3 Configure database connection in `.env` (choose PostgreSQL for production or SQLite for dev simplicity)
-  - [ ] 1.4 Create User model in `prisma/schema.prisma` with fields: `id`, `socialProvider` (enum: GOOGLE, FACEBOOK), `socialProviderId`, `name`, `email`, `gradeLevel` (nullable, enum: GRADE_4, GRADE_6), `createdAt`, `updatedAt`
-  - [ ] 1.5 Add unique constraint on `socialProvider` + `socialProviderId` combination
-  - [ ] 1.6 Run first migration (`npx prisma migrate dev --name init_user_table`)
-  - [ ] 1.7 Generate Prisma Client (`npx prisma generate`)
-  - [ ] 1.8 Create `lib/db.ts` with Prisma Client singleton pattern (prevents multiple instances in dev)
-  - [ ] 1.9 Add `DATABASE_URL` to `env.local.example` with example connection string
-  - [ ] 1.10 Verify database connection works (test query in dev)
+  - [ ] 1.1 Create PostgreSQL database using Replit's database tool (automatically sets `DATABASE_URL` secret)
+  - [ ] 1.2 Install Prisma and database dependencies (`npm install prisma @prisma/client @prisma/adapter-neon`)
+  - [ ] 1.3 Install Prisma as dev dependency (`npm install -D prisma`)
+  - [ ] 1.4 Initialize Prisma (`npx prisma init`)
+  - [ ] 1.5 Configure `prisma/schema.prisma` datasource to use `DATABASE_URL` from env (automatically provided by Replit)
+  - [ ] 1.6 Create User model in `prisma/schema.prisma` with fields: `id`, `socialProvider` (enum: GOOGLE, FACEBOOK), `socialProviderId`, `name`, `email`, `gradeLevel` (nullable, enum: GRADE_4, GRADE_6), `createdAt`, `updatedAt`
+  - [ ] 1.7 Add unique constraint on `socialProvider` + `socialProviderId` combination
+  - [ ] 1.8 Run first migration (`npx prisma migrate dev --name init_user_table`)
+  - [ ] 1.9 Generate Prisma Client (`npx prisma generate`)
+  - [ ] 1.10 Create `lib/db.ts` with Prisma Client singleton pattern (prevents multiple instances in dev)
+  - [ ] 1.11 Verify database connection works (test query in dev)
 
 - [ ] **2.0 OAuth Backend Implementation**
   - [ ] 2.1 Install NextAuth.js (`npm install next-auth@beta` for v5 with App Router support)
   - [ ] 2.2 Create `auth.ts` (NextAuth configuration) at project root with Google and Facebook providers
-  - [ ] 2.3 Configure Google Provider in `auth.ts` (clientId, clientSecret from env variables)
-  - [ ] 2.4 Configure Facebook Provider in `auth.ts` (appId, appSecret from env variables)
-  - [ ] 2.5 Add OAuth callback URLs to Google Cloud Console (e.g., `http://localhost:3000/api/auth/callback/google`)
-  - [ ] 2.6 Add OAuth redirect URIs to Facebook App Dashboard
+  - [ ] 2.3 Configure Google Provider in `auth.ts` (clientId, clientSecret from Replit Secrets)
+  - [ ] 2.4 Configure Facebook Provider in `auth.ts` (appId, appSecret from Replit Secrets)
+  - [ ] 2.5 Add OAuth callback URLs to Google Cloud Console (use Replit dev URL for testing, production URL when deployed)
+  - [ ] 2.6 Add OAuth redirect URIs to Facebook App Dashboard (use Replit dev URL for testing, production URL when deployed)
   - [ ] 2.7 Create `app/api/auth/[...nextauth]/route.ts` to handle all auth routes (NextAuth.js App Router pattern)
   - [ ] 2.8 Implement custom `signIn` callback in `auth.ts` to check if user exists in database
   - [ ] 2.9 If new user: create user record with `socialProvider`, `socialProviderId`, `name`, `email` (leave `gradeLevel` null)
   - [ ] 2.10 If returning user: load user from database by `socialProvider` + `socialProviderId`
   - [ ] 2.11 Store user data in session (include `id`, `name`, `email`, `gradeLevel`, `isNewUser` flag)
-  - [ ] 2.12 Update `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `FACEBOOK_APP_ID`, `FACEBOOK_APP_SECRET` in `env.local.example`
-  - [ ] 2.13 Add `NEXTAUTH_SECRET` to `.env` (generate with `openssl rand -base64 32`)
-  - [ ] 2.14 Add `NEXTAUTH_URL` to `.env` (e.g., `http://localhost:3000` for dev)
+  - [ ] 2.12 Add secrets to Replit Secrets panel: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `FACEBOOK_APP_ID`, `FACEBOOK_APP_SECRET`
+  - [ ] 2.13 Add `NEXTAUTH_SECRET` to Replit Secrets (generate with `openssl rand -base64 32` in shell)
+  - [ ] 2.14 Add `NEXTAUTH_URL` to Replit Secrets (use Replit webview URL during development)
 
 - [ ] **3.0 Session Management & Security**
   - [ ] 3.1 Configure NextAuth session strategy as `jwt` in `auth.ts` (for serverless compatibility)
@@ -142,17 +143,16 @@
   - [ ] 6.16 Test on mobile devices (iOS Safari, Android Chrome)
   - [ ] 6.17 Test on desktop browsers (Chrome, Safari, Firefox, Edge)
   - [ ] 6.18 Run ESLint and TypeScript checks (no errors)
-  - [ ] 6.19 Create documentation for OAuth setup in `docs/auth-setup.md`
-  - [ ] 6.20 Update README with authentication section and environment variables
 
 ---
 
 ## Notes
 
-- **Database Choice:** Recommending Prisma + PostgreSQL (or SQLite for development) for Next.js compatibility
-- **OAuth Libraries:** Will use `next-auth` (Auth.js v5) which has built-in Google/Facebook providers
+- **Database:** Using Replit's built-in PostgreSQL database with Prisma ORM
+- **Secrets Management:** All API keys and secrets stored in Replit Secrets (accessed via `process.env`)
+- **OAuth Libraries:** Using `next-auth` (Auth.js v5) with built-in Google/Facebook providers
 - **Session Strategy:** JWT tokens stored in HttpOnly cookies (secure, serverless-compatible)
-- **Environment Variables:** Google Client ID/Secret and Facebook App ID/Secret must be configured
+- **Replit Environment:** Development uses Replit's webview URL; OAuth callbacks must be configured with this URL
 - **Testing Priority:** Focus on OAuth flow end-to-end first, then edge cases
 
 ## Success Criteria
