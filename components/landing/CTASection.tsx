@@ -8,7 +8,7 @@ import { trackCTAClick } from '@/lib/analytics';
 export default function CTASection() {
   const { loading, error, signIn, clearError } = useAuth();
 
-  const handleSignIn = (provider: 'google' | 'facebook') => {
+  const handleSignIn = (provider: 'google') => {
     trackCTAClick('final_cta', provider);
     signIn(provider);
   };
@@ -58,13 +58,7 @@ export default function CTASection() {
             <SocialSignInButton
               provider="google"
               onClick={() => handleSignIn('google')}
-              loading={loading.google}
-              className="shadow-xl hover:shadow-2xl"
-            />
-            <SocialSignInButton
-              provider="facebook"
-              onClick={() => handleSignIn('facebook')}
-              loading={loading.facebook}
+              loading={loading}
               className="shadow-xl hover:shadow-2xl"
             />
           </div>
