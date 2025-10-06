@@ -1,0 +1,157 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Diagnostic reports
+report.[0-9]*.json
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Runtime caches
+.tmp/
+.temp/
+*.tmp
+
+# Dependency directories
+node_modules/
+jspm_packages/
+bower_components/
+web_modules/
+
+# Package archives
+*.tgz
+
+# Tooling caches
+.npm
+.pnpm-store/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+.yarn-integrity
+.nyc_output/
+coverage/
+.rpt2_cache/
+.rts2_cache_*/
+.rollup.cache
+.eslintcache
+.stylelintcache
+
+# Build output
+build/
+dist/
+public/build/
+public/dist/
+release/
+lib/
+compiled/
+.next/
+out/
+.nuxt/
+.svelte-kit/
+.vite/
+.storybook-out/
+storybook-static/
+.angular/cache/
+.parcel-cache/
+.cache/
+.esbuild/
+
+# Framework specific
+.expo/
+.expo-shared/
+ionic/www/
+capacitor/www/
+functions/node_modules/
+
+# Serverless & deploy previews
+.vercel/
+.netlify/
+.aws-sam/
+amplify/
+serverless/
+dist-ssr/
+
+# Testing
+coverage-final.json
+*.lcov
+junit.xml
+cypress/videos/
+cypress/screenshots/
+playwright-report/
+playwright/.cache/
+.vitest/
+
+# Environment files
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+!.env.defaults
+!.env.testing
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
+
+# OS generated files
+.DS_Store
+Thumbs.db
+Icon?
+.Spotlight-V100
+.Trashes
+._*
+*.lnk
+
+# Editors and IDEs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+.history/
+.vscode-test/
+
+# TypeScript
+*.tsbuildinfo
+
+# Optional REPL history
+.node_repl_history
+
+# Certificates and keys
+*.pem
+*.p12
+*.key
+*.crt
+*.csr
+
+# Misc backups
+*.bak
+*.orig
+*.rej
+*-backup
+*-BACKUP
+
+# Docker
+.docker/
+Dockerfile.*.tmp
+
+# macOS metadata
+*.fseventsd
