@@ -1,6 +1,5 @@
 'use client';
 
-import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import type { Session } from 'next-auth';
 
@@ -12,8 +11,14 @@ export default function DashboardNav({ user }: DashboardNavProps) {
   const router = useRouter();
 
   const handleLogout = async () => {
-    await signOut({ redirect: false });
-    router.push('/');
+    const response = await fetch('/api/auth/signout', {
+      method: 'POST',
+    });
+    
+    if (response.ok) {
+      router.push('/');
+      router.refresh();
+    }
   };
 
   return (

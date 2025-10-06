@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
 
 type GradeOption = 'GRADE_4' | 'GRADE_6';
 
@@ -15,7 +14,6 @@ interface GradeCard {
 
 export default function GradeSelectionPage() {
   const router = useRouter();
-  const { update } = useSession();
   const [selectedGrade, setSelectedGrade] = useState<GradeOption | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -53,8 +51,8 @@ export default function GradeSelectionPage() {
         throw new Error('Failed to update grade level');
       }
 
-      await update({ gradeLevel: grade });
       router.push('/dashboard');
+      router.refresh();
       
     } catch (err) {
       console.error('Error updating grade:', err);
