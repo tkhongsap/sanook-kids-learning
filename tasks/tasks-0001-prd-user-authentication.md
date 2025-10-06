@@ -57,18 +57,18 @@
 
 ## Tasks
 
-- [ ] **1.0 Database Setup & User Schema**
-  - [ ] 1.1 Create PostgreSQL database using Replit's database tool (automatically sets `DATABASE_URL` secret)
-  - [ ] 1.2 Install Prisma and database dependencies (`npm install prisma @prisma/client @prisma/adapter-neon`)
-  - [ ] 1.3 Install Prisma as dev dependency (`npm install -D prisma`)
-  - [ ] 1.4 Initialize Prisma (`npx prisma init`)
-  - [ ] 1.5 Configure `prisma/schema.prisma` datasource to use `DATABASE_URL` from env (automatically provided by Replit)
-  - [ ] 1.6 Create User model in `prisma/schema.prisma` with fields: `id`, `socialProvider` (enum: GOOGLE, FACEBOOK), `socialProviderId`, `name`, `email`, `gradeLevel` (nullable, enum: GRADE_4, GRADE_6), `createdAt`, `updatedAt`
-  - [ ] 1.7 Add unique constraint on `socialProvider` + `socialProviderId` combination
-  - [ ] 1.8 Run first migration (`npx prisma migrate dev --name init_user_table`)
-  - [ ] 1.9 Generate Prisma Client (`npx prisma generate`)
-  - [ ] 1.10 Create `lib/db.ts` with Prisma Client singleton pattern (prevents multiple instances in dev)
-  - [ ] 1.11 Verify database connection works (test query in dev)
+- [x] **1.0 Database Setup & User Schema**
+  - [x] 1.1 Create PostgreSQL database using Replit's database tool (automatically sets `DATABASE_URL` secret)
+  - [x] 1.2 Install Prisma and database dependencies (`npm install prisma @prisma/client @prisma/adapter-neon`)
+  - [x] 1.3 Install Prisma as dev dependency (`npm install -D prisma`)
+  - [x] 1.4 Initialize Prisma (`npx prisma init`)
+  - [x] 1.5 Configure `prisma/schema.prisma` datasource to use `DATABASE_URL` from env (automatically provided by Replit)
+  - [x] 1.6 Create User model in `prisma/schema.prisma` with fields: `id`, `socialProvider` (enum: GOOGLE, FACEBOOK), `socialProviderId`, `name`, `email`, `gradeLevel` (nullable, enum: GRADE_4, GRADE_6), `createdAt`, `updatedAt`
+  - [x] 1.7 Add unique constraint on `socialProvider` + `socialProviderId` combination
+  - [x] 1.8 Run first migration (`npx prisma migrate dev --name init_user_table`)
+  - [x] 1.9 Generate Prisma Client (`npx prisma generate`)
+  - [x] 1.10 Create `lib/db.ts` with Prisma Client singleton pattern (prevents multiple instances in dev)
+  - [x] 1.11 Verify database connection works (test query in dev)
 
 - [ ] **2.0 OAuth Backend Implementation**
   - [ ] 2.1 Install NextAuth.js (`npm install next-auth@beta` for v5 with App Router support)
