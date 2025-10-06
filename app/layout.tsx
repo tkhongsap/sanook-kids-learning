@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import GAScript from "@/components/analytics/GAScript";
+import SessionProvider from "@/components/providers/SessionProvider";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://sanook-kids-learning.vercel.app';
 const ogImageUrl = `${siteUrl}/og-image.png`;
@@ -118,7 +119,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrgData) }}
         />
         <GAScript />
-        {children}
+        <SessionProvider>
+          {children}
+        </SessionProvider>
       </body>
     </html>
   );

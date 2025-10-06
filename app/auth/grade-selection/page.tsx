@@ -15,7 +15,7 @@ interface GradeCard {
 
 export default function GradeSelectionPage() {
   const router = useRouter();
-  const { data: session, update } = useSession();
+  const { update } = useSession();
   const [selectedGrade, setSelectedGrade] = useState<GradeOption | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
