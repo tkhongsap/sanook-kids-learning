@@ -8,6 +8,26 @@ export async function signInAction(provider: string) {
   });
 }
 
+export async function devBypassSignInAction() {
+  console.log('[Dev Bypass] Signing in admin user...');
+  
+  try {
+    await signIn('credentials', { 
+      email: 'tkhongsap',
+      password: 'sthought',
+      redirectTo: '/dashboard',
+    });
+    console.log('[Dev Bypass] Sign in successful');
+    return { success: true };
+  } catch (error) {
+    console.error('[Dev Bypass] Sign-in error:', error);
+    return { 
+      success: false, 
+      error: 'ไม่สามารถเข้าสู่ระบบได้' 
+    };
+  }
+}
+
 export async function credentialsSignInAction(email: string, password: string) {
   console.log('[Server Action] credentialsSignInAction called');
   console.log('[Server Action] Email:', email);
