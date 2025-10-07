@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Read(//home/runner/**)"
+      "Read(//home/runner/**)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []
