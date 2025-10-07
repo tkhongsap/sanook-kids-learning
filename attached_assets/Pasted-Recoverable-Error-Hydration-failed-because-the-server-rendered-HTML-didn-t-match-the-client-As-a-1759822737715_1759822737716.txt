@@ -1,0 +1,95 @@
+Recoverable Error
+
+Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+See more info here: https://nextjs.org/docs/messages/react-hydration-error
+
+
+  ...
+    <LoadingBoundary loading={null}>
+      <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+        <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+          <RedirectBoundary>
+            <RedirectErrorBoundary router={{...}}>
+              <InnerLayoutRouter url="/" tree={[...]} cacheNode={{lazyData:null, ...}} segmentPath={[...]}>
+                <SegmentViewNode type="page" pagePath="page.tsx">
+                  <SegmentTrieNode>
+                  <Home>
+                    <main className="min-h-screen">
+                      <HeroSection>
+                        <section className="relative b...">
+                          <div className="container-...">
+                            <div className="grid lg:gr...">
+                              <div className="text-cente...">
+                                <div>
+                                <h1>
+                                <p>
+                                <div
++                                 className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4"
+-                                 className="max-w-md mx-auto lg:mx-0"
+                                >
+                                  <SocialSignInButton provider="google" onClick={function onClick} loading={false}>
++                                   <button
++                                     onClick={function onClick}
++                                     disabled={false}
++                                     className="bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 font-m..."
++                                     type="button"
++                                   >
+-                                   <div className="flex gap-2 mb-4">
+                                ...
+                              ...
+                          ...
+                      ...
+                ...
+              ...
+components/ui/SocialSignInButton.tsx (88:5) @ SocialSignInButton
+
+
+  86 |
+  87 |   return (
+> 88 |     <button
+     |     ^
+  89 |       onClick={onClick}
+  90 |       disabled={loading}
+  91 |       className={buttonClasses}
+Call Stack
+14
+
+Hide 10 ignore-listed frame(s)
+<unknown>
+https://react.dev/link/hydration-mismatch
+throwOnHydrationMismatch
+node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js (4505:1)
+beginWork
+node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js (11106:1)
+runWithFiberInDEV
+node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js (871:1)
+performUnitOfWork
+node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js (15726:1)
+workLoopConcurrentByScheduler
+node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js (15720:1)
+renderRootConcurrent
+node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js (15695:1)
+performWorkOnRoot
+node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js (14989:1)
+performWorkOnRootViaSchedulerTask
+node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js (16815:1)
+MessagePort.performWorkUntilDeadline
+node_modules/next/dist/compiled/scheduler/cjs/scheduler.development.js (45:1)
+button
+<anonymous>
+SocialSignInButton
+components/ui/SocialSignInButton.tsx (88:5)
+HeroSection
+./components/landing/HeroSection.tsx
+Home
+app/page.tsx (14:7)
+1
