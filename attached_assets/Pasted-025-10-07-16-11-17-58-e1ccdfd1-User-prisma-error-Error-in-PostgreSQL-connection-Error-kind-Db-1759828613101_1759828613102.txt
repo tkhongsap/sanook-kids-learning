@@ -1,0 +1,92 @@
+025-10-07 16:11:17.58
+e1ccdfd1
+User
+prisma:error Error in PostgreSQL connection: Error { kind: Db, cause: Some(DbError { severity: "FATAL", parsed_severity: Some(Fatal), code: SqlState(E57P01), message: "terminating connection due to administrator command", detail: None, hint: None, position: None, where_: None, schema: None, table: None, column: None, datatype: None, constraint: None, file: Some("postgres.c"), line: Some(3289), routine: Some("ProcessInterrupts") }) }
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+[auth][error] CredentialsSignin: Read more at https://errors.authjs.dev#credentialssignin
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+at fl (/home/runner/workspace/.next/server/app/page.js:530:40843)
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+at async fu (/home/runner/workspace/.next/server/app/page.js:530:50268)
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+at async fw (/home/runner/workspace/.next/server/app/page.js:530:54521)
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+at async fI (/home/runner/workspace/.next/server/app/page.js:530:59820)
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+at async f6 (/home/runner/workspace/.next/server/app/page.js:530:82362)
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+at async t4 (/home/runner/workspace/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:15:2454)
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+at async /home/runner/workspace/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:15:1271
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+at async t2 (/home/runner/workspace/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:14:14859)
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+at async nQ (/home/runner/workspace/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:20:23704)
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+at async m (/home/runner/workspace/.next/server/app/page.js:547:57749)
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+Credentials sign-in error: w: Read more at https://errors.authjs.dev#credentialssignin
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+at fl (.next/server/app/page.js:530:40843)
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+at async fu (.next/server/app/page.js:530:50268)
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+at async fw (.next/server/app/page.js:530:54521)
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+at async fI (.next/server/app/page.js:530:59820)
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+at async f6 (.next/server/app/page.js:530:82362)
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+at async m (.next/server/app/page.js:547:57749) {
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+type: 'CredentialsSignin',
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+kind: 'signIn',
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+code: 'credentials'
+2025-10-07 16:16:17.08
+e1ccdfd1
+User
+}
