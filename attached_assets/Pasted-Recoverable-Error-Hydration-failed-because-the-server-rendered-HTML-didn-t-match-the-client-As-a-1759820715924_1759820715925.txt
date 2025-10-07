@@ -1,0 +1,143 @@
+Recoverable Error
+
+Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+See more info here: https://nextjs.org/docs/messages/react-hydration-error
+
+
+  ...
+    <LoadingBoundary loading={null}>
+      <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+        <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+          <RedirectBoundary>
+            <RedirectErrorBoundary router={{...}}>
+              <InnerLayoutRouter url="/" tree={[...]} cacheNode={{lazyData:null, ...}} segmentPath={[...]}>
+                <SegmentViewNode type="page" pagePath="page.tsx">
+                  <SegmentTrieNode>
+                  <Home>
+                    <main className="min-h-screen">
+                      <HeroSection>
+                        <section className="relative b...">
+                          <div className="container-...">
+                            <div className="grid lg:gr...">
+                              <div className="text-cente...">
+                                <div>
+                                <h1>
+                                <p>
+                                <div
++                                 className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4"
+-                                 className="max-w-md mx-auto lg:mx-0"
+                                >
+                                  <SocialSignInButton provider="google" onClick={function onClick} loading={false}>
++                                   <button
++                                     onClick={function onClick}
++                                     disabled={false}
++                                     className="bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 font-m..."
++                                     type="button"
++                                   >
+-                                   <div className="flex gap-2 mb-4">
+                                ...
+                              ...
+                          ...
+                      ...
+                ...
+              ...
+components/ui/SocialSignInButton.tsx (88:5) @ SocialSignInButton
+
+
+  86 |
+  87 |   return (
+> 88 |     <button
+     |     ^
+  89 |       onClick={onClick}
+  90 |       disabled={loading}
+  91 |       className={buttonClasses}
+Call Stack
+14
+
+Show 10 ignore-listed frame(s)
+button
+<anonymous>
+SocialSignInButton
+components/ui/SocialSignInButton.tsx (88:5)
+HeroSection
+./components/landing/HeroSection.tsx
+Home
+app/page.tsx (14:7)
+1
+2
+ฟรี ไม่มีค่าใช้จ่าย ตลอดไป
+เรียนรู้ในจังหวะของคุณ พิชิตหลักสูตร ป.4 และ ป.6
+การศึกษาคุณภาพสูง ฟรี สำหรับนักเรียนไทยทุกคน
+เรียนคณิตศาสตร์และวิทยาศาสตร์ด้วยวิดีโอสั้นและแบบฝึกหัดที่สนุก
+
+
+ลงชื่อเข้าใช้ด้วย Google
+สอดคล้องหลักสูตรไทย
+ไม่มีโฆษณา
+ปลอดภัยสำหรับเด็ก
+Hero Image Placeholder
+(Thai students learning happily)
+
+ใช้งานง่าย เพียง 3 ขั้นตอน
+เริ่มต้นการเรียนรู้ของคุณได้ทันที ไม่ซับซ้อน
+
+1
+ลงทะเบียนฟรี
+ใช้บัญชี Google หรือ Facebook ของคุณ ไม่ต้องใช้บัตรเครดิต
+
+2
+เลือกชั้นเรียน
+เลือก ป.4 หรือ ป.6 เพื่อดูเนื้อหาที่เหมาะกับคุณ
+
+3
+เริ่มเรียน
+ดูวิดีโอ ทำแบบฝึกหัด และพิชิตบทเรียนทีละบทเรียน
+
+เริ่มเรียนเลย
+ทำไมต้อง Sanook Kids Learning?
+แพลตฟอร์มการเรียนรู้ที่ออกแบบมาเพื่อนักเรียนไทยโดยเฉพาะ
+
+สอดคล้องหลักสูตรไทย
+เนื้อหาตรงตามหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน กระทรวงศึกษาธิการ
+
+เรียนรู้ด้วยการพิชิต
+ต้องเข้าใจจริง ไม่ใช่แค่จำ - ได้แรงบันดาลใจจาก Khan Academy
+
+วิดีโอสั้น เข้าใจง่าย
+วิดีโอสอนภาษาไทย ไม่เกิน 7 นาที เข้าใจง่าย จดจ่อได้
+
+ฝึกฝนได้ไม่จำกัด
+ลองใหม่ได้เรื่อยๆ จนกว่าจะเข้าใจ ไม่มีค่าใช้จ่ายเพิ่ม
+
+ติดตามความก้าวหน้า
+เห็นผลการเรียนของคุณบนทุกอุปกรณ์ ทุกที่ ทุกเวลา
+
+ฟรี 100%
+ไม่มีค่าใช้จ่าย ไม่มีโฆษณา ไม่ต้องใช้บัตรเครดิต
+
+ได้แรงบันดาลใจจาก Khan Academy แต่ออกแบบสำหรับนักเรียนไทยโดยเฉพาะ
+สำหรับผู้ปกครอง
+มอบโอกาสที่ดีที่สุดให้กับลูกของคุณ
+เราเข้าใจว่าคุณต้องการสิ่งที่ดีที่สุดสำหรับลูก
+Sanook Kids Learning ออกแบบมาเพื่อช่วยให้ลูกของคุณประสบความสำเร็จ
+
+ช่วยให้ลูกเข้าใจบทเรียนในโรงเรียนได้ดีขึ้น
+เนื้อหาสอดคล้องกับหลักสูตรที่โรงเรียนสอน ลูกสามารถทบทวนและฝึกฝนเพิ่มเติม
+
+ติดตามความก้าวหน้าของลูกได้ทุกเมื่อ
+ระบบบันทึกผลการเรียนอัตโนมัติ คุณเห็นว่าลูกเรียนไปถึงไหนแล้ว
+
+ปลอดภัย ไม่มีโฆษณา เหมาะสำหรับเด็ก
+ออกแบบมาเพื่อเด็กโดยเฉพาะ ไม่มีโฆษณาที่ไม่เหมาะสม เนื้อหาปลอดภัย 100%
+
+ไม่ต้องใช้บัตรเครดิต ฟรีตลอดไป
+ไม่มีค่าใช้จ่ายแอบ
