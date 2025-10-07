@@ -45,10 +45,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
+        console.log('[Auth Debug] Starting authorization...');
+        console.log('[Auth Debug] Received email:', credentials?.email);
+        
         if (!credentials?.email || !credentials?.password) {
+          console.log('[Auth Debug] Missing credentials');
           return null;
         }
 
+        console.log('[Auth Debug] Looking up user by email:', credentials.email);
         const user = await prisma.user.findUnique({
           where: { email: credentials.email as string },
           select: {
@@ -61,19 +66,30 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           },
         });
 
+        console.log('[Auth Debug] User found:', user ? 'Yes' : 'No');
+        if (user) {
+          console.log('[Auth Debug] User has password:', user.password ? 'Yes' : 'No');
+        }
+
         if (!user || !user.password) {
+          console.log('[Auth Debug] User not found or no password set');
           return null;
         }
 
+        console.log('[Auth Debug] Comparing password...');
         const isPasswordValid = await bcrypt.compare(
           credentials.password as string,
           user.password
         );
 
+        console.log('[Auth Debug] Password valid:', isPasswordValid);
+
         if (!isPasswordValid) {
+          console.log('[Auth Debug] Password comparison failed');
           return null;
         }
 
+        console.log('[Auth Debug] Authorization successful for user:', user.email);
         return {
           id: user.id,
           email: user.email,

@@ -14,6 +14,10 @@ externalPort = 3001
 exposeLocalhost = true
 
 [[ports]]
+localPort = 39449
+externalPort = 4200
+
+[[ports]]
 localPort = 40851
 externalPort = 3002
 
