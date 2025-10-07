@@ -4,11 +4,20 @@
 
 Sanook Kids Learning is a free Thai educational platform for Grade 4 (ป.4) and Grade 6 (ป.6) students. The platform provides math and science education through short videos and interactive exercises, all in Thai language.
 
-**Current Status:** User authentication system complete and ready for testing.
+**Current Status:** User authentication system complete with dual login options (Google OAuth and email/password).
 
 ---
 
 ## Recent Changes
+
+### October 7, 2025 - Email/Password Authentication Added
+
+✅ **Completed Features:**
+- Email/password authentication alongside Google OAuth
+- Secure password hashing with bcryptjs
+- Admin account support with isAdmin flag
+- Dual login UI with tab-based interface (Google / Email)
+- Admin account created: `tkhongsap` (for testing and development)
 
 ### October 6, 2025 - User Authentication System Complete (PRD 0001)
 
@@ -28,7 +37,7 @@ Sanook Kids Learning is a free Thai educational platform for Grade 4 (ป.4) and
 ## User Preferences
 
 - **Language:** All UI text must be in Thai
-- **Authentication:** Google OAuth only for now, Facebook to be added later
+- **Authentication:** Google OAuth and email/password, Facebook to be added later
 - **Design:** Clean, mobile-first design with Tailwind CSS
 - **Target Users:** Thai students in Grade 4 (ป.4) and Grade 6 (ป.6)
 
@@ -84,30 +93,46 @@ Sanook Kids Learning is a free Thai educational platform for Grade 4 (ป.4) and
 **User Model:**
 - `id`: String (cuid)
 - `email`: String (unique, required)
-- `name`: String (optional)
-- `image`: String (optional) 
+- `name`: String (required)
+- `password`: String (optional, hashed with bcrypt, only for email/password users)
+- `isAdmin`: Boolean (default: false)
 - `gradeLevel`: Enum (GRADE_4 | GRADE_6, optional)
-- `provider`: Enum (GOOGLE | FACEBOOK)
-- `providerId`: String (unique)
+- `socialProvider`: Enum (GOOGLE | FACEBOOK, optional)
+- `socialProviderId`: String (optional, unique with socialProvider)
 - `createdAt`: DateTime
 - `updatedAt`: DateTime
 
+**Authentication Methods:**
+- OAuth users: Have `socialProvider` and `socialProviderId`, no password
+- Email/password users: Have `password` (hashed), no social provider fields
+- Admin users: Set `isAdmin: true` for special privileges
+
 ### Authentication Flow
 
-1. **New User:**
+1. **Google OAuth - New User:**
    - Landing page → Click "ลงชื่อเข้าใช้ด้วย Google"
    - Google OAuth consent screen
    - Callback → `/auth/grade-selection` (new user)
    - Select grade (ป.4 or ป.6)
    - Redirect to `/dashboard`
 
-2. **Returning User:**
+2. **Email/Password - Login:**
+   - Landing page → Switch to "อีเมล/รหัสผ่าน" tab
+   - Enter email and password
+   - If account exists and password matches → `/auth/grade-selection` or `/dashboard`
+
+3. **Returning User:**
    - Landing page → Auto-redirect to `/dashboard` (if authenticated and has grade)
    - Dashboard displays: "ยินดีต้อนรับ {name}! คุณกำลังเรียนชั้น {grade}"
 
-3. **Logout:**
+4. **Logout:**
    - Click "ออกจากระบบ" button in dashboard nav
    - Session cleared → Redirect to landing page
+
+**Admin Account:**
+- Email: `tkhongsap`
+- Password: `sthought`
+- Has `isAdmin: true` flag for special privileges
 
 ### Route Protection (Middleware)
 
