@@ -1,12 +1,14 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import SocialSignInButton from '@/components/ui/SocialSignInButton';
+import CredentialsSignInForm from '@/components/ui/CredentialsSignInForm';
 import { useAuth } from '@/hooks/useAuth';
 import { trackCTAClick } from '@/lib/analytics';
 
 export default function HeroSection() {
   const { loading, error, signIn, clearError } = useAuth();
+  const [loginMethod, setLoginMethod] = useState<'google' | 'email'>('google');
 
   const handleSignIn = (provider: 'google') => {
     trackCTAClick('hero', provider);
@@ -42,13 +44,43 @@ export default function HeroSection() {
               เรียนคณิตศาสตร์และวิทยาศาสตร์ด้วยวิดีโอสั้นและแบบฝึกหัดที่สนุก
             </p>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-              <SocialSignInButton
-                provider="google"
-                onClick={() => handleSignIn('google')}
-                loading={loading}
-              />
+            {/* Login Method Tabs */}
+            <div className="max-w-md mx-auto lg:mx-0">
+              <div className="flex gap-2 mb-4">
+                <button
+                  onClick={() => setLoginMethod('google')}
+                  className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all ${
+                    loginMethod === 'google'
+                      ? 'bg-primary text-white'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                >
+                  Google
+                </button>
+                <button
+                  onClick={() => setLoginMethod('email')}
+                  className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all ${
+                    loginMethod === 'email'
+                      ? 'bg-primary text-white'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                >
+                  อีเมล/รหัสผ่าน
+                </button>
+              </div>
+
+              {/* CTA Buttons */}
+              {loginMethod === 'google' ? (
+                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                  <SocialSignInButton
+                    provider="google"
+                    onClick={() => handleSignIn('google')}
+                    loading={loading}
+                  />
+                </div>
+              ) : (
+                <CredentialsSignInForm />
+              )}
             </div>
 
             {/* Error Message */}

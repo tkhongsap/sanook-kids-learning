@@ -7,7 +7,6 @@
     "dev": "next dev -p 5000",
     "build": "next build",
     "start": "next start -p 5000",
-
     "lint": "next lint"
   },
   "repository": {
@@ -25,9 +24,11 @@
     "@neondatabase/serverless": "^1.0.2",
     "@prisma/adapter-neon": "^6.16.3",
     "@prisma/client": "^6.16.3",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^24.7.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
+    "bcryptjs": "^3.0.2",
     "eslint": "^9.37.0",
     "eslint-config-next": "^15.5.4",
     "next": "^15.5.4",

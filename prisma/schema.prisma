@@ -26,10 +26,12 @@ enum GradeLevel {
 
 model User {
   id                String          @id @default(cuid())
-  socialProvider    SocialProvider
-  socialProviderId  String
+  socialProvider    SocialProvider?
+  socialProviderId  String?
   name              String
-  email             String
+  email             String          @unique
+  password          String?
+  isAdmin           Boolean         @default(false)
   gradeLevel        GradeLevel?
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt

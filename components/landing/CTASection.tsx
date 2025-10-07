@@ -1,12 +1,14 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import SocialSignInButton from '@/components/ui/SocialSignInButton';
+import CredentialsSignInForm from '@/components/ui/CredentialsSignInForm';
 import { useAuth } from '@/hooks/useAuth';
 import { trackCTAClick } from '@/lib/analytics';
 
 export default function CTASection() {
   const { loading, error, signIn, clearError } = useAuth();
+  const [loginMethod, setLoginMethod] = useState<'google' | 'email'>('google');
 
   const handleSignIn = (provider: 'google') => {
     trackCTAClick('final_cta', provider);
@@ -53,15 +55,47 @@ export default function CTASection() {
             </div>
           </div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <SocialSignInButton
-              provider="google"
-              onClick={() => handleSignIn('google')}
-              loading={loading}
-              className="shadow-xl hover:shadow-2xl"
-            />
+          {/* Login Method Tabs */}
+          <div className="max-w-md mx-auto mb-6">
+            <div className="flex gap-2">
+              <button
+                onClick={() => setLoginMethod('google')}
+                className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all ${
+                  loginMethod === 'google'
+                    ? 'bg-white text-primary'
+                    : 'bg-white/20 text-white hover:bg-white/30'
+                }`}
+              >
+                Google
+              </button>
+              <button
+                onClick={() => setLoginMethod('email')}
+                className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all ${
+                  loginMethod === 'email'
+                    ? 'bg-white text-primary'
+                    : 'bg-white/20 text-white hover:bg-white/30'
+                }`}
+              >
+                อีเมล/รหัสผ่าน
+              </button>
+            </div>
           </div>
+
+          {/* CTA Buttons */}
+          {loginMethod === 'google' ? (
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <SocialSignInButton
+                provider="google"
+                onClick={() => handleSignIn('google')}
+                loading={loading}
+                className="shadow-xl hover:shadow-2xl"
+              />
+            </div>
+          ) : (
+            <div className="max-w-md mx-auto bg-white/10 backdrop-blur-sm p-6 rounded-xl">
+              <CredentialsSignInForm className="[&_input]:bg-white/90 [&_input]:text-gray-900 [&_label]:text-white [&_button]:bg-white [&_button]:text-primary [&_button:hover]:bg-white/90" />
+            </div>
+          )}
 
           {/* Error Message */}
           {error && (

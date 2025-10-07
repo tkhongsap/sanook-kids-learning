@@ -1,7 +1,9 @@
 import NextAuth, { type DefaultSession } from 'next-auth';
 import Google from 'next-auth/providers/google';
+import Credentials from 'next-auth/providers/credentials';
 import { PrismaClient, SocialProvider, GradeLevel } from './lib/generated/prisma';
 import { prisma } from './lib/db';
+import bcrypt from 'bcryptjs';
 
 declare module 'next-auth' {
   interface Session extends DefaultSession {
@@ -9,12 +11,14 @@ declare module 'next-auth' {
       id: string;
       gradeLevel: GradeLevel | null;
       isNewUser?: boolean;
+      isAdmin?: boolean;
     } & DefaultSession['user'];
   }
 
   interface User {
     gradeLevel: GradeLevel | null;
     isNewUser?: boolean;
+    isAdmin?: boolean;
   }
 }
 
@@ -23,6 +27,7 @@ declare module '@auth/core/jwt' {
     id: string;
     gradeLevel: GradeLevel | null;
     isNewUser?: boolean;
+    isAdmin?: boolean;
   }
 }
 
@@ -31,6 +36,45 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+    Credentials({
+      id: 'credentials',
+      name: 'Email/Password',
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" }
+      },
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) {
+          return null;
+        }
+
+        const user = await prisma.user.findUnique({
+          where: { email: credentials.email as string }
+        });
+
+        if (!user || !user.password) {
+          return null;
+        }
+
+        const isPasswordValid = await bcrypt.compare(
+          credentials.password as string,
+          user.password
+        );
+
+        if (!isPasswordValid) {
+          return null;
+        }
+
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          gradeLevel: user.gradeLevel,
+          isNewUser: false,
+          isAdmin: user.isAdmin,
+        };
+      },
     }),
   ],
   session: {
@@ -50,11 +94,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async signIn({ user, account, profile }) {
-      if (!account || !user.email) {
+      if (!user.email) {
         return false;
       }
 
       try {
+        if (account?.provider === 'credentials') {
+          return true;
+        }
+
+        if (!account) {
+          return false;
+        }
+
         const provider = 'GOOGLE' as SocialProvider;
         const providerId = account.providerAccountId;
 
@@ -81,10 +133,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           (user as any).id = newUser.id;
           (user as any).gradeLevel = null;
           (user as any).isNewUser = true;
+          (user as any).isAdmin = false;
         } else {
           (user as any).id = existingUser.id;
           (user as any).gradeLevel = existingUser.gradeLevel;
           (user as any).isNewUser = false;
+          (user as any).isAdmin = existingUser.isAdmin;
         }
 
         return true;
@@ -99,6 +153,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.id = user.id;
         token.gradeLevel = user.gradeLevel;
         token.isNewUser = user.isNewUser;
+        token.isAdmin = user.isAdmin;
       }
 
       if (trigger === 'update' && session) {
@@ -116,6 +171,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.id = token.id;
         session.user.gradeLevel = token.gradeLevel as GradeLevel | null;
         session.user.isNewUser = token.isNewUser as boolean | undefined;
+        session.user.isAdmin = token.isAdmin as boolean | undefined;
       }
       return session;
     },
