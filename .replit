@@ -18,13 +18,13 @@ localPort = 40851
 externalPort = 3002
 
 [[ports]]
-localPort = 45301
-externalPort = 4200
-
-[[ports]]
 localPort = 45893
 externalPort = 3003
 exposeLocalhost = true
+
+[[ports]]
+localPort = 46583
+externalPort = 4200
 
 [agent]
 expertMode = true
