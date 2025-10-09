@@ -19,40 +19,28 @@ export default function CredentialsSignInForm({ className = '' }: CredentialsSig
     setDevLoading(true);
 
     try {
-      const response = await fetch('/api/dev-bypass', {
-        method: 'POST',
-      });
-
-      if (!response.ok) {
-        const data = await response.json().catch(() => null);
-        setError(data?.error ?? 'เกิดข้อผิดพลาด');
-        setDevLoading(false);
-        return;
-      }
-
+      console.log('[CredentialsSignInForm] Starting dev bypass sign in...');
       const result = await signIn('credentials', {
         email: DEV_BYPASS_EMAIL,
         password: DEV_BYPASS_PASSWORD,
         redirect: false,
-        callbackUrl: '/auth/grade-selection',
       });
 
       if (result?.error) {
+        console.error('[CredentialsSignInForm] Sign in error:', result.error);
         setError('เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
         setDevLoading(false);
         return;
       }
 
-      const redirectTo = result?.url ?? '/auth/grade-selection';
-      router.push(redirectTo);
+      console.log('[CredentialsSignInForm] Sign in successful, redirecting...');
+      // Navigate to grade selection - middleware will handle routing based on grade level
+      router.push('/auth/grade-selection');
     } catch (err) {
       console.error('[CredentialsSignInForm] Dev bypass failed', err);
       setError('เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
       setDevLoading(false);
-      return;
     }
-
-    setDevLoading(false);
   };
 
   return (

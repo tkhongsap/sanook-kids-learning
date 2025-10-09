@@ -4,6 +4,7 @@ import Credentials from 'next-auth/providers/credentials';
 import { PrismaClient, SocialProvider, GradeLevel } from './lib/generated/prisma';
 import { prisma } from './lib/db';
 import bcrypt from 'bcryptjs';
+import { DEV_BYPASS_EMAIL, DEV_BYPASS_NAME } from './lib/dev-bypass';
 
 declare module 'next-auth' {
   interface Session extends DefaultSession {
@@ -47,14 +48,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       async authorize(credentials) {
         console.log('[Auth Debug] Starting authorization...');
         console.log('[Auth Debug] Received email:', credentials?.email);
-        
+
         if (!credentials?.email || !credentials?.password) {
           console.log('[Auth Debug] Missing credentials');
           return null;
         }
 
+        const isDevBypass = credentials.email === DEV_BYPASS_EMAIL;
+        console.log('[Auth Debug] Is dev bypass:', isDevBypass);
+
         console.log('[Auth Debug] Looking up user by email:', credentials.email);
-        const user = await prisma.user.findUnique({
+        let user = await prisma.user.findUnique({
           where: { email: credentials.email as string },
           select: {
             id: true,
@@ -69,6 +73,43 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         console.log('[Auth Debug] User found:', user ? 'Yes' : 'No');
         if (user) {
           console.log('[Auth Debug] User has password:', user.password ? 'Yes' : 'No');
+        }
+
+        // Auto-create or fix dev bypass user if needed
+        if (isDevBypass) {
+          if (!user) {
+            console.log('[Auth Debug] Creating dev bypass user...');
+            const hashedPassword = await bcrypt.hash(credentials.password as string, 10);
+            user = await prisma.user.create({
+              data: {
+                email: DEV_BYPASS_EMAIL,
+                name: DEV_BYPASS_NAME,
+                password: hashedPassword,
+                gradeLevels: [],
+                isAdmin: true,
+              },
+            });
+            console.log('[Auth Debug] Dev user created:', user.id);
+          } else if (!user.password) {
+            console.log('[Auth Debug] Setting password for dev bypass user...');
+            const hashedPassword = await bcrypt.hash(credentials.password as string, 10);
+            user = await prisma.user.update({
+              where: { id: user.id },
+              data: {
+                password: hashedPassword,
+                isAdmin: true,
+              },
+              select: {
+                id: true,
+                email: true,
+                name: true,
+                password: true,
+                gradeLevels: true,
+                isAdmin: true,
+              },
+            });
+            console.log('[Auth Debug] Dev user password set');
+          }
         }
 
         if (!user || !user.password) {
