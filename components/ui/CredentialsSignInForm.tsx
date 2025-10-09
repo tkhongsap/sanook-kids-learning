@@ -11,8 +11,6 @@ export default function CredentialsSignInForm({ className = '' }: CredentialsSig
   const [devLoading, setDevLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const isDevEnvironment = process.env.NODE_ENV !== 'production';
-
   const handleBypassLogin = async () => {
     setError(null);
     setDevLoading(true);
@@ -33,10 +31,6 @@ export default function CredentialsSignInForm({ className = '' }: CredentialsSig
       setDevLoading(false);
     }
   };
-
-  if (!isDevEnvironment) {
-    return null;
-  }
 
   return (
     <div className={`space-y-4 ${className}`}>
