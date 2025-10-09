@@ -4,11 +4,23 @@
 
 Sanook Kids Learning is a free Thai educational platform for Grade 4 (ป.4) and Grade 6 (ป.6) students. The platform provides math and science education through short videos and interactive exercises, all in Thai language.
 
-**Current Status:** User authentication system complete with dual login options (Google OAuth and email/password).
+**Current Status:** Multi-grade selection system complete. Users can now select and study content from both ป.4 and ป.6 simultaneously.
 
 ---
 
 ## Recent Changes
+
+### October 9, 2025 - Multi-Grade Selection System
+
+✅ **Completed Features:**
+- Users can select multiple grades (both ป.4 and ป.6) during onboarding
+- Changed from single `gradeLevel` to `gradeLevels` array in database schema
+- Updated grade selection UI from radio buttons to checkboxes
+- Dashboard displays content for all selected grades
+- Session update mechanism using `useSession().update()` to refresh JWT tokens
+- Dev bypass button for development testing (skips login, goes directly to grade selection)
+
+**Key Design Decision:** Grades determine content difficulty and type, not restrictions. Users can study content at different levels based on their interests and learning needs.
 
 ### October 7, 2025 - Email/Password Authentication Added
 
@@ -96,11 +108,13 @@ Sanook Kids Learning is a free Thai educational platform for Grade 4 (ป.4) and
 - `name`: String (required)
 - `password`: String (optional, hashed with bcrypt, only for email/password users)
 - `isAdmin`: Boolean (default: false)
-- `gradeLevel`: Enum (GRADE_4 | GRADE_6, optional)
+- `gradeLevels`: GradeLevel[] (array of GRADE_4 | GRADE_6, default: [])
 - `socialProvider`: Enum (GOOGLE | FACEBOOK, optional)
 - `socialProviderId`: String (optional, unique with socialProvider)
 - `createdAt`: DateTime
 - `updatedAt`: DateTime
+
+**Note:** Changed from single `gradeLevel` to `gradeLevels` array to support multi-grade selection.
 
 **Authentication Methods:**
 - OAuth users: Have `socialProvider` and `socialProviderId`, no password
@@ -113,7 +127,8 @@ Sanook Kids Learning is a free Thai educational platform for Grade 4 (ป.4) and
    - Landing page → Click "ลงชื่อเข้าใช้ด้วย Google"
    - Google OAuth consent screen
    - Callback → `/auth/grade-selection` (new user)
-   - Select grade (ป.4 or ป.6)
+   - Select grades (ป.4 and/or ป.6) using checkboxes → Click "ดำเนินการต่อ"
+   - Session updates with selected grades using `useSession().update()`
    - Redirect to `/dashboard`
 
 2. **Email/Password - Login:**
@@ -121,9 +136,14 @@ Sanook Kids Learning is a free Thai educational platform for Grade 4 (ป.4) and
    - Enter email and password
    - If account exists and password matches → `/auth/grade-selection` or `/dashboard`
 
-3. **Returning User:**
-   - Landing page → Auto-redirect to `/dashboard` (if authenticated and has grade)
-   - Dashboard displays: "ยินดีต้อนรับ {name}! คุณกำลังเรียนชั้น {grade}"
+3. **Dev Bypass (Development Only):**
+   - Landing page → Click "Dev: Skip Login" button (only visible in development)
+   - Automatically creates/logs in as dev user → `/auth/grade-selection`
+   - Used for quick testing without OAuth setup
+
+4. **Returning User:**
+   - Landing page → Auto-redirect to `/dashboard` (if authenticated and has grades)
+   - Dashboard displays content for all selected grades
 
 4. **Logout:**
    - Click "ออกจากระบบ" button in dashboard nav
@@ -137,10 +157,15 @@ Sanook Kids Learning is a free Thai educational platform for Grade 4 (ป.4) and
 
 ### Route Protection (Middleware)
 
-- `/` - Public (redirects to dashboard if authenticated)
-- `/dashboard` - Protected (requires auth + gradeLevel)
-- `/auth/grade-selection` - Protected (requires auth, no grade yet)
+- `/` - Public (redirects to dashboard if authenticated with grades)
+- `/dashboard` - Protected (requires auth + at least one grade selected)
+- `/auth/grade-selection` - Protected (requires auth, redirects here if no grades selected)
 - All other routes - Public
+
+**Session Update Flow:**
+- After grade selection, `useSession().update()` triggers JWT callback with `trigger: 'update'`
+- JWT token is refreshed with new gradeLevels array
+- Full page reload ensures middleware sees updated session
 
 ### Environment Variables
 
@@ -187,14 +212,16 @@ npm run type-check    # Run TypeScript compiler
 ## Testing Notes
 
 ### Manual Testing Checklist
-- [ ] Google OAuth sign-in flow (new user)
-- [ ] Grade selection saves correctly
-- [ ] Dashboard displays user info and grade
-- [ ] Logout clears session
-- [ ] Returning user auto-redirects to dashboard
-- [ ] Protected routes redirect unauthenticated users
-- [ ] Thai text displays correctly on all devices
-- [ ] Mobile responsive design works
+- [x] Google OAuth sign-in flow (new user)
+- [x] Multi-grade selection with checkboxes
+- [x] Grade selection saves correctly and updates session
+- [x] Dashboard displays content for all selected grades
+- [x] Dev bypass button for quick testing (development only)
+- [x] Logout clears session
+- [x] Returning user auto-redirects to dashboard
+- [x] Protected routes redirect unauthenticated users
+- [x] Thai text displays correctly on all devices
+- [x] Mobile responsive design works
 
 ### OAuth Testing
 **Callback URL:** Use your Replit domain from `env | grep DOMAIN`  
@@ -235,5 +262,5 @@ When ready to deploy:
 
 ---
 
-Last Updated: October 6, 2025
+Last Updated: October 9, 2025
 
