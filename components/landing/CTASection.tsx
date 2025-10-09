@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import SocialSignInButton from '@/components/ui/SocialSignInButton';
-import { devBypassSignInAction } from '@/app/actions/auth';
 import { useAuth } from '@/hooks/useAuth';
 import { trackCTAClick } from '@/lib/analytics';
 
 export default function CTASection() {
+  const router = useRouter();
   const { loading, error, signIn, clearError } = useAuth();
   const [loginMethod, setLoginMethod] = useState<'google' | 'email'>('google');
   const [emailBypassLoading, setEmailBypassLoading] = useState(false);
@@ -24,48 +25,28 @@ export default function CTASection() {
 
     let isMounted = true;
 
-    const bypassLogin = async () => {
-      setEmailBypassError(null);
-      setEmailBypassLoading(true);
+    setEmailBypassError(null);
+    setEmailBypassLoading(true);
 
-      try {
-        const result = await devBypassSignInAction();
+    try {
+      document.cookie = 'dev-bypass=grade-selection; path=/; max-age=3600';
+      router.push('/auth/grade-selection');
+    } catch (err) {
+      console.error('[CTASection] Dev bypass navigation failed', err);
 
-        if (!result.success) {
-          if (!isMounted) {
-            return;
-          }
-
-          setEmailBypassError(result.error || 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
-          setEmailBypassLoading(false);
-          setLoginMethod('google');
-          return;
-        }
-
-        const redirectTo = result.redirectTo ?? '/auth/grade-selection';
-
-        if (isMounted) {
-          window.location.href = redirectTo;
-        }
-      } catch (err) {
-        console.error('[CTASection] Dev bypass failed', err);
-
-        if (!isMounted) {
-          return;
-        }
-
-        setEmailBypassError('เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
-        setEmailBypassLoading(false);
-        setLoginMethod('google');
+      if (!isMounted) {
+        return;
       }
-    };
 
-    void bypassLogin();
+      setEmailBypassError('เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
+      setEmailBypassLoading(false);
+      setLoginMethod('google');
+    }
 
     return () => {
       isMounted = false;
     };
-  }, [loginMethod]);
+  }, [loginMethod, router]);
 
   return (
     <section className="relative bg-gradient-to-br from-primary to-primary-dark text-white section-padding overflow-hidden">

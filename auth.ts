@@ -3,7 +3,17 @@ import Google from 'next-auth/providers/google';
 import Credentials from 'next-auth/providers/credentials';
 import { PrismaClient, SocialProvider, GradeLevel } from './lib/generated/prisma';
 import { prisma } from './lib/db';
-import bcrypt from 'bcryptjs';
+type BcryptModule = typeof import('bcryptjs');
+
+let cachedBcrypt: BcryptModule | null = null;
+
+async function getBcrypt(): Promise<BcryptModule> {
+  if (!cachedBcrypt) {
+    cachedBcrypt = await import('bcryptjs');
+  }
+
+  return cachedBcrypt;
+}
 
 declare module 'next-auth' {
   interface Session extends DefaultSession {
@@ -77,6 +87,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         console.log('[Auth Debug] Comparing password...');
+        const bcrypt = await getBcrypt();
         const isPasswordValid = await bcrypt.compare(
           credentials.password as string,
           user.password

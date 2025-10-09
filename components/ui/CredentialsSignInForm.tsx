@@ -1,13 +1,15 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
-import { credentialsSignInAction, devBypassSignInAction } from '@/app/actions/auth';
+import { useRouter } from 'next/navigation';
+import { credentialsSignInAction } from '@/app/actions/auth';
 
 interface CredentialsSignInFormProps {
   className?: string;
 }
 
 export default function CredentialsSignInForm({ className = '' }: CredentialsSignInFormProps) {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -44,22 +46,15 @@ export default function CredentialsSignInForm({ className = '' }: CredentialsSig
     }
   };
 
-  const handleBypassLogin = async () => {
+  const handleBypassLogin = () => {
     setError(null);
     setDevLoading(true);
 
     try {
-      const result = await devBypassSignInAction();
-      if (!result.success) {
-        setError(result.error || 'เกิดข้อผิดพลาด');
-        setDevLoading(false);
-        return;
-      }
-
-      const redirectTo = result.redirectTo ?? '/dashboard';
-      window.location.href = redirectTo;
+      document.cookie = 'dev-bypass=grade-selection; path=/; max-age=3600';
+      router.push('/auth/grade-selection');
     } catch (err) {
-      console.error('[CredentialsSignInForm] Dev bypass failed', err);
+      console.error('[CredentialsSignInForm] Dev bypass navigation failed', err);
       setError('เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
       setDevLoading(false);
     }
