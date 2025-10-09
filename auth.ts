@@ -9,14 +9,14 @@ declare module 'next-auth' {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      gradeLevel: GradeLevel | null;
+      gradeLevels: GradeLevel[];
       isNewUser?: boolean;
       isAdmin?: boolean;
     } & DefaultSession['user'];
   }
 
   interface User {
-    gradeLevel: GradeLevel | null;
+    gradeLevels: GradeLevel[];
     isNewUser?: boolean;
     isAdmin?: boolean;
   }
@@ -25,7 +25,7 @@ declare module 'next-auth' {
 declare module '@auth/core/jwt' {
   interface JWT {
     id: string;
-    gradeLevel: GradeLevel | null;
+    gradeLevels: GradeLevel[];
     isNewUser?: boolean;
     isAdmin?: boolean;
   }
@@ -61,7 +61,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             email: true,
             name: true,
             password: true,
-            gradeLevel: true,
+            gradeLevels: true,
             isAdmin: true,
           },
         });
@@ -94,7 +94,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           id: user.id,
           email: user.email,
           name: user.name,
-          gradeLevel: user.gradeLevel,
+          gradeLevels: user.gradeLevels,
           isNewUser: false,
           isAdmin: user.isAdmin,
         };
@@ -150,17 +150,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               socialProviderId: providerId,
               name: user.name || 'User',
               email: user.email,
-              gradeLevel: null,
+              gradeLevels: [],
             },
           });
 
           (user as any).id = newUser.id;
-          (user as any).gradeLevel = null;
+          (user as any).gradeLevels = [];
           (user as any).isNewUser = true;
           (user as any).isAdmin = false;
         } else {
           (user as any).id = existingUser.id;
-          (user as any).gradeLevel = existingUser.gradeLevel;
+          (user as any).gradeLevels = existingUser.gradeLevels;
           (user as any).isNewUser = false;
           (user as any).isAdmin = existingUser.isAdmin;
         }
@@ -175,14 +175,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, user, trigger, session }) {
       if (user && user.id) {
         token.id = user.id;
-        token.gradeLevel = user.gradeLevel;
+        token.gradeLevels = user.gradeLevels;
         token.isNewUser = user.isNewUser;
         token.isAdmin = user.isAdmin;
       }
 
       if (trigger === 'update' && session) {
-        if (session.gradeLevel !== undefined) {
-          token.gradeLevel = session.gradeLevel;
+        if (session.gradeLevels !== undefined) {
+          token.gradeLevels = session.gradeLevels;
           token.isNewUser = false;
         }
       }
@@ -193,7 +193,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async session({ session, token }) {
       if (session.user && token.id) {
         session.user.id = token.id;
-        session.user.gradeLevel = token.gradeLevel as GradeLevel | null;
+        session.user.gradeLevels = token.gradeLevels as GradeLevel[];
         session.user.isNewUser = token.isNewUser as boolean | undefined;
         session.user.isAdmin = token.isAdmin as boolean | undefined;
       }

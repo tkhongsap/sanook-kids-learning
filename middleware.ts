@@ -16,20 +16,21 @@ export default auth((req) => {
 
   if (isAuthenticated && req.auth?.user) {
     const user = req.auth.user;
+    const hasGrades = user.gradeLevels && user.gradeLevels.length > 0;
     
     if (pathname === '/') {
-      if (user.gradeLevel) {
+      if (hasGrades) {
         return NextResponse.redirect(new URL('/dashboard', req.url));
       } else {
         return NextResponse.redirect(new URL('/auth/grade-selection', req.url));
       }
     }
 
-    if (pathname.startsWith('/auth/grade-selection') && user.gradeLevel) {
+    if (pathname.startsWith('/auth/grade-selection') && hasGrades) {
       return NextResponse.redirect(new URL('/dashboard', req.url));
     }
 
-    if (pathname.startsWith('/dashboard') && !user.gradeLevel) {
+    if (pathname.startsWith('/dashboard') && !hasGrades) {
       return NextResponse.redirect(new URL('/auth/grade-selection', req.url));
     }
   }
