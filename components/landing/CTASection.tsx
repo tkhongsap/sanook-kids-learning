@@ -4,16 +4,18 @@ import React, { useEffect, useState } from 'react';
 import SocialSignInButton from '@/components/ui/SocialSignInButton';
 import { useAuth } from '@/hooks/useAuth';
 import { trackCTAClick } from '@/lib/analytics';
+import { signIn as nextAuthSignIn } from 'next-auth/react';
+import { DEV_BYPASS_EMAIL, DEV_BYPASS_PASSWORD } from '@/lib/dev-bypass';
 
 export default function CTASection() {
-  const { loading, error, signIn, clearError } = useAuth();
+  const { loading, error, signIn: startOAuthSignIn, clearError } = useAuth();
   const [loginMethod, setLoginMethod] = useState<'google' | 'email'>('google');
   const [emailBypassLoading, setEmailBypassLoading] = useState(false);
   const [emailBypassError, setEmailBypassError] = useState<string | null>(null);
 
   const handleSignIn = (provider: 'google') => {
     trackCTAClick('final_cta', provider);
-    signIn(provider);
+    startOAuthSignIn(provider);
   };
 
   useEffect(() => {
@@ -32,20 +34,37 @@ export default function CTASection() {
           method: 'POST',
         });
 
-        const result = await response.json();
-
-        if (!result.success) {
+        if (!response.ok) {
+          const data = await response.json().catch(() => null);
           if (!isMounted) {
             return;
           }
 
-          setEmailBypassError(result.error || 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
+          setEmailBypassError(data?.error || 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
           setEmailBypassLoading(false);
           setLoginMethod('google');
           return;
         }
 
-        const redirectTo = result.redirectTo ?? '/auth/grade-selection';
+        const result = await nextAuthSignIn('credentials', {
+          email: DEV_BYPASS_EMAIL,
+          password: DEV_BYPASS_PASSWORD,
+          redirect: false,
+          callbackUrl: '/auth/grade-selection',
+        });
+
+        if (result?.error) {
+          if (!isMounted) {
+            return;
+          }
+
+          setEmailBypassError('เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
+          setEmailBypassLoading(false);
+          setLoginMethod('google');
+          return;
+        }
+
+        const redirectTo = result?.url ?? '/auth/grade-selection';
 
         if (isMounted) {
           window.location.href = redirectTo;

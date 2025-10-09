@@ -1,6 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
+import { DEV_BYPASS_EMAIL, DEV_BYPASS_PASSWORD } from '@/lib/dev-bypass';
 
 interface CredentialsSignInFormProps {
   className?: string;
@@ -9,6 +12,7 @@ interface CredentialsSignInFormProps {
 export default function CredentialsSignInForm({ className = '' }: CredentialsSignInFormProps) {
   const [devLoading, setDevLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleBypassLogin = async () => {
     setError(null);
@@ -19,21 +23,36 @@ export default function CredentialsSignInForm({ className = '' }: CredentialsSig
         method: 'POST',
       });
 
-      const result = await response.json();
-
-      if (!result.success) {
-        setError(result.error || 'เกิดข้อผิดพลาด');
+      if (!response.ok) {
+        const data = await response.json().catch(() => null);
+        setError(data?.error ?? 'เกิดข้อผิดพลาด');
         setDevLoading(false);
         return;
       }
 
-      const redirectTo = result.redirectTo ?? '/auth/grade-selection';
-      window.location.href = redirectTo;
+      const result = await signIn('credentials', {
+        email: DEV_BYPASS_EMAIL,
+        password: DEV_BYPASS_PASSWORD,
+        redirect: false,
+        callbackUrl: '/auth/grade-selection',
+      });
+
+      if (result?.error) {
+        setError('เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
+        setDevLoading(false);
+        return;
+      }
+
+      const redirectTo = result?.url ?? '/auth/grade-selection';
+      router.push(redirectTo);
     } catch (err) {
       console.error('[CredentialsSignInForm] Dev bypass failed', err);
       setError('เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
       setDevLoading(false);
+      return;
     }
+
+    setDevLoading(false);
   };
 
   return (

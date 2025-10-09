@@ -2,6 +2,7 @@
 
 import { signIn } from '@/auth';
 import type { SignInResponse } from 'next-auth/react';
+import { DEV_BYPASS_EMAIL, DEV_BYPASS_PASSWORD } from '@/lib/dev-bypass';
 
 export async function signInAction(provider: string) {
   await signIn(provider, { 
@@ -14,13 +15,14 @@ export async function devBypassSignInAction() {
 
   try {
     const result = (await signIn('credentials', {
-      email: 'tkhongsap',
-      password: 'sthought',
+      email: DEV_BYPASS_EMAIL,
+      password: DEV_BYPASS_PASSWORD,
       redirect: false,
       redirectTo: '/auth/grade-selection',
     })) as SignInResponse | undefined;
     console.log('[Dev Bypass] Sign in successful');
-    return { success: true, redirectTo: '/auth/grade-selection' };
+    const redirectTo = result?.url ?? '/auth/grade-selection';
+    return { success: true, redirectTo };
   } catch (error) {
     console.error('[Dev Bypass] Sign-in error:', error);
     return {

@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
 type GradeOption = 'GRADE_4' | 'GRADE_6';
@@ -14,7 +13,6 @@ interface GradeCard {
 }
 
 export default function GradeSelectionPage() {
-  const router = useRouter();
   const { update } = useSession();
   const [selectedGrades, setSelectedGrades] = useState<GradeOption[]>([]);
   const [isLoading, setIsLoading] = useState(false);
