@@ -39,22 +39,40 @@ Students in Thailand often require extra help outside the classroom to master ke
     * **Needs:** Clear explanations for specific topics he finds difficult. The ability to practice for exams. A way to see what he has already learned.
     * **Frustrations:** Not being able to find help for one specific problem. Falling behind and not knowing how to catch up.
 
+* **Tertiary Persona: "Nong Ploy" (Multi-Grade Learner)**
+    * **Age:** 10 years old (Grade 4).
+    * **Behavior:** A bright student who is ahead of her peers and wants to preview Grade 6 content. Her parents encourage advanced learning.
+    * **Needs:** Access to multiple grade levels to challenge herself and explore topics beyond her current grade.
+    * **Frustrations:** Being limited to only one grade level when she's capable of learning more advanced material.
+
 ### **3. User Scenarios & Journey**
 
 **3.1. Scenario 1: Nong Som's First Learning Session**
 1.  Nong Som's mother hears about **Sanook Kids Learning** and navigates to the website on their family tablet.
 2.  The landing page is bright and welcoming. Her mom sees the "ลงชื่อเข้าใช้ด้วย Google" (Sign in with Google) button and clicks it, using her own Google account.
-3.  A prompt asks, "นักเรียนอยู่ชั้นอะไรเอ่ย?" (Which grade are you in?). Her mom selects "ชั้น ป.4" for Som.
-4.  They are taken to the Grade 4 dashboard, showing "คณิตศาสตร์" (Math) and "วิทยาศาสตร์" (Science). Som clicks on Math.
+3.  A prompt asks, "เลือกระดับชั้นที่สนใจ" (Select the grade levels you're interested in). The page notes that they can select more than one grade. Her mom selects "ชั้น ป.4" for Som and clicks "ดำเนินการต่อ" (Continue).
+4.  They are taken to the dashboard, showing "คณิตศาสตร์ ป.4" (Grade 4 Math) and "วิทยาศาสตร์ ป.4" (Grade 4 Science). Som clicks on Math.
 5.  She sees a list of units. Her mom helps her find the "เศษส่วน" (Fractions) unit, which she's learning in school.
 6.  She clicks the first lesson, watches a 5-minute animated video explaining basic fractions.
 7.  After the video, a set of 5 multiple-choice questions appears. She gets the first 4 correct. The site shows a "ถูกต้อง!" (Correct!) animation each time.
 8.  After the 4th correct answer, a large, celebratory message appears: "เก่งมาก! ผ่านแล้วนะ!" (Excellent! You've mastered it!).
 9.  She feels proud. Back on the Fractions unit page, a green checkmark now appears next to the lesson she just completed.
 
-**3.2. User Journey Flow**
+**3.2. Scenario 2: Nong Ploy's Multi-Grade Journey**
+1.  Nong Ploy is a Grade 4 student but excels in Mathematics and wants to challenge herself with Grade 6 content.
+2.  She signs in using her existing account and is taken to her dashboard.
+3.  She sees content for Grade 4 (her currently selected grade) and wants to add Grade 6.
+4.  She accesses her profile settings and selects "เปลี่ยนระดับชั้น" (Change grade levels).
+5.  On the grade selection screen, she sees Grade 4 already selected. She also clicks on "ชั้น ป.6" to add it.
+6.  She clicks "ดำเนินการต่อ" (Continue) and returns to the dashboard.
+7.  The dashboard now shows both Grade 4 and Grade 6 content, organized by grade level.
+8.  She can freely switch between grade levels and access content appropriate to each grade.
+
+**3.3. User Journey Flow**
 A user's journey is mapped as follows:
-*Landing Page -> Social Auth -> Grade Selection (first time only) -> Subject Dashboard -> Unit Page -> Lesson (Video + Practice) -> Mastery Confirmation -> Return to Unit Page*
+*Landing Page -> Social Auth -> Grade Selection (first time only, can select multiple) -> Subject Dashboard (filtered by selected grades) -> Unit Page -> Lesson (Video + Practice) -> Mastery Confirmation -> Return to Unit Page*
+
+Users can modify their grade selections at any time from their profile settings, allowing them to add or remove grade levels as their learning needs evolve.
 
 ### **4. Product Features & Requirements**
 
@@ -65,10 +83,11 @@ A user's journey is mapped as follows:
     * "As a student, I want to log in with one click so I can get back to my lessons right away."
 * **Functional Requirements:**
     * The system must integrate with OAuth 2.0 for Google Sign-In and Facebook Login.
-    * On successful authentication for a new user, a user profile must be created in the database, storing `user_id`, `name`, `email` (from social provider), and the chosen `grade_level`.
-    * On subsequent logins, the system must recognize the user and load their saved progress.
+    * On successful authentication for a new user, a user profile must be created in the database, storing `user_id`, `name`, `email` (from social provider), and the chosen `grade_levels` (array).
+    * On subsequent logins, the system must recognize the user and load their saved progress and all selected grade levels.
     * The user session must persist after closing the browser tab.
     * A clear "ออกจากระบบ" (Logout) button must be present in the user navigation.
+    * Users must be able to modify their grade level selections at any time through profile settings.
     * Error handling must be in place for failed authentication attempts.
 
 **4.2. Feature: Learning Content & Mastery System**
@@ -89,10 +108,13 @@ A user's journey is mapped as follows:
 * **User Stories:**
     * "As a student, I want to see all the lessons I've already finished so I know what to work on next."
     * "As a user, I want to log in from any computer and see my progress."
+    * "As a multi-grade learner, I want to see content from all my selected grades organized clearly so I can choose what to study."
 * **Functional Requirements:**
     * All mastered topics must be linked to the `user_id` in the database.
     * On the Subject/Unit pages, mastered topics must be visually distinct from unattempted or unmastered topics (e.g., using a checkmark, color change, or filled-in progress bar).
-    * The dashboard must default to the user's selected grade level upon login.
+    * The dashboard must display content for all selected grade levels, organized by grade.
+    * Users with multiple grade selections must be able to easily navigate between grade level content.
+    * Progress tracking must be maintained separately for each grade level's content.
 
 ### **5. Non-Functional Requirements (NFRs)**
 

@@ -27,7 +27,9 @@ This feature enables users to sign up and sign in to the Sanook Kids Learning pl
 
 4. **As a user**, I want to be able to log out when I'm done, especially if I'm using a shared device.
 
-5. **As a new user**, I want to be asked which grade I'm in right after I sign up so the system shows me the right content.
+5. **As a new user**, I want to be asked which grade(s) I'm interested in right after I sign up so the system shows me the right content.
+
+6. **As an advanced learner**, I want to select multiple grade levels so I can access content that matches my learning pace, not just my age.
 
 ## 4. Functional Requirements
 
@@ -50,23 +52,35 @@ This feature enables users to sign up and sign in to the Sanook Kids Learning pl
 
 **FR-5:** For new users (first-time login), the system must:
   - Create a new user record in the database
-  - Store: `user_id` (internal), `social_provider` (Google/Facebook), `social_provider_id`, `name`, `email`, `created_at`
+  - Store: `user_id` (internal), `social_provider` (Google/Facebook), `social_provider_id`, `name`, `email`, `grade_levels` (array), `created_at`
   - Redirect the user to a Grade Selection screen
 
-**FR-6:** The Grade Selection screen must ask "นักเรียนอยู่ชั้นอะไรเอ่ย?" (Which grade are you in?) and present two options:
+**FR-6:** The Grade Selection screen must ask "เลือกระดับชั้นที่สนใจ" (Select the grade levels you're interested in) and present options:
   - "ชั้น ป.4" (Grade 4)
   - "ชั้น ป.6" (Grade 6)
+  - The screen must clearly indicate that users can select multiple grades
+  - The screen must display a helpful message: "เลือกได้มากกว่า 1 ชั้นเพื่อเรียนรู้เนื้อหาที่คุณสนใจ" (You can select more than one grade to learn content that interests you)
 
-**FR-7:** Once a grade is selected, the system must:
-  - Save `grade_level` to the user's profile
+**FR-7:** Once grade level(s) are selected, the system must:
+  - Validate that at least one grade level is selected
+  - Save `grade_levels` (array) to the user's profile
+  - Show confirmation of how many grades were selected (e.g., "เลือก 2 ชั้น")
   - Redirect the user to their personalized dashboard
 
 ### Returning Users
 
 **FR-8:** For returning users (users already in the database), the system must:
   - Recognize them by their `social_provider_id`
-  - Load their saved profile data including `grade_level`
+  - Load their saved profile data including all selected `grade_levels`
   - Redirect them directly to their dashboard (skip Grade Selection)
+  - Display content for all their selected grade levels on the dashboard
+
+**FR-8a:** Users must be able to modify their grade level selections after initial setup:
+  - A settings/profile option must be available to access grade selection
+  - Users can add or remove grade levels at any time
+  - Previously selected grades can be toggled on/off
+  - Changes must be saved immediately and reflected in the dashboard
+  - A helpful message must indicate: "คุณสามารถเปลี่ยนแปลงระดับชั้นได้ในภายหลัง" (You can change grade levels later)
 
 ### Session Management
 
@@ -100,9 +114,10 @@ This feature enables users to sign up and sign in to the Sanook Kids Learning pl
 - User profile editing (e.g., changing name, email)
 - Account deletion
 - Line or other social providers
-- Multi-user profiles per account (e.g., multiple children)
+- Multi-user profiles per account (e.g., multiple children under one account)
 - Two-factor authentication
 - Role-based access (admin, teacher roles)
+- Grade level recommendations based on assessment or age
 
 ## 6. Design Considerations
 
@@ -110,7 +125,13 @@ This feature enables users to sign up and sign in to the Sanook Kids Learning pl
 
 - The sign-in buttons should be large, prominent, and use the official Google/Facebook branding guidelines
 - The landing page should feel welcoming and educational (see Section 6.1 of main PRD: bright, positive colors)
-- The Grade Selection screen should have large, easy-to-tap cards for Grade 4 and Grade 6
+- The Grade Selection screen must:
+  - Have large, easy-to-tap cards for Grade 4 and Grade 6
+  - Support multi-select interaction with clear visual feedback (e.g., checkmarks, border highlights)
+  - Show a count of selected grades in the continue button
+  - Display the message "เลือกได้มากกว่า 1 ชั้น" prominently
+  - Disable the continue button until at least one grade is selected
+  - Show loading state during save operation
 - All text must be in Thai language
 - The logout button should be visible but not overly prominent (e.g., in a top-right user menu)
 
@@ -136,7 +157,9 @@ Study Khan Academy's sign-up and onboarding experience for best practices:
 **Grade/Level Selection:**
 - Khan Academy asks "What would you like to learn?" with clear visual options
 - Large cards with icons make selection easy and engaging
-- Consider adding brief descriptions (e.g., "ป.4: อายุ 9-10 ปี, คณิตศาสตร์และวิทยาศาสตร์")
+- Multi-select capability allows users to choose multiple learning paths
+- Brief descriptions help users understand each option (e.g., "ป.4: อายุ 9-10 ปี, คณิตศาสตร์และวิทยาศาสตร์")
+- Visual feedback (checkmarks, highlights) confirms selections
 
 **First-Time User Experience:**
 - After sign-up, immediate value: show the dashboard with available content
@@ -181,10 +204,12 @@ Study Khan Academy's sign-up and onboarding experience for best practices:
 
 ## 9. Open Questions
 
-1. Should we allow users to change their selected grade level after initial selection? (Decision: Defer to Progress Tracking PRD)
+1. ~~Should we allow users to change their selected grade level after initial selection?~~ **RESOLVED:** Yes, users can modify grade selections at any time through profile settings (FR-8a).
 2. What should happen if a user signs in with Google one time and Facebook another time using the same email? (Recommendation: Treat as separate accounts for V1, merge capability in future)
-3. Should we collect any analytics data during sign-up? (e.g., how they found the site)
+3. Should we collect any analytics data during sign-up? (e.g., how they found the site, which grades they select)
 4. What is the desired behavior for users under 13 years old per COPPA/privacy regulations?
+5. Should there be a maximum number of grade levels a user can select? (Current: No limit, both grades can be selected)
+6. How should the dashboard prioritize or organize content when multiple grades are selected?
 
 ---
 

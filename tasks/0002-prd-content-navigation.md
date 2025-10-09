@@ -19,7 +19,9 @@ This feature establishes the structural organization and navigation system for a
 
 ## 3. User Stories
 
-1. **As a Grade 4 student**, I want to see only Math and Science subjects on my dashboard so I'm not overwhelmed with too many choices.
+1. **As a Grade 4 student**, I want to see Math and Science subjects for my selected grade on my dashboard so I'm not overwhelmed with too many choices.
+
+1a. **As a multi-grade learner**, I want to see content organized by grade level when I've selected multiple grades so I can choose which grade's content to study.
 
 2. **As a student**, I want to click on Math and see all the different topics (units) I can learn, displayed as cards with pictures, so I can easily find what I'm studying in school.
 
@@ -51,16 +53,25 @@ Grade Level (ป.4 or ป.6)
 
 ### Dashboard (Grade-Level View)
 
-**FR-3:** Upon login, users must land on their grade-specific dashboard.
+**FR-3:** Upon login, users must land on their personalized dashboard showing content for all their selected grade levels.
 
-**FR-4:** The dashboard must display the two available subjects (Math and Science) as large, clickable cards.
+**FR-3a:** For users with a single grade level selected:
+  - Display subjects (Math and Science) for that grade level
+
+**FR-3b:** For users with multiple grade levels selected:
+  - Organize content by grade level (e.g., sections for "ชั้น ป.4" and "ชั้น ป.6")
+  - Each grade section displays its subjects (Math and Science)
+  - OR provide a grade level selector/toggle to switch between grade views
+
+**FR-4:** The dashboard must display the available subjects (Math and Science) as large, clickable cards for each selected grade level.
 
 **FR-5:** Each subject card must include:
-  - Subject name in Thai (e.g., "คณิตศาสตร์")
+  - Subject name in Thai (e.g., "คณิตศาสตร์ ป.4" or "วิทยาศาสตร์ ป.6")
+  - Grade level indicator when multiple grades are selected
   - A relevant, friendly icon or illustration
   - A progress bar showing overall completion percentage across all units
 
-**FR-6:** The dashboard must display the current user's name and grade level prominently (e.g., "สวัสดี [Name], ชั้น ป.4")
+**FR-6:** The dashboard must display the current user's name and selected grade levels prominently (e.g., "สวัสดี [Name]" with grade indicators)
 
 ### Subject Page (Unit Grid View)
 
@@ -131,9 +142,9 @@ Grade Level (ป.4 or ป.6)
 - User-customizable layout or favorites
 - Lesson prerequisites or locked content (all content is accessible)
 - Recommendations engine ("You might like...")
-- Multiple grade level switching in one session
 - Thai Language, English, Social Studies subjects (Post-V1)
 - Grades 1-3, 5 (Post-V1)
+- Cross-grade comparisons or difficulty indicators
 
 ## 6. Design Considerations
 
@@ -226,7 +237,9 @@ Suggested URL structure:
 2. How many units per subject should we target for V1 launch? (Decision needed from content team)
 3. Should there be a way to "favorite" or "bookmark" specific units? (Recommendation: Defer to Post-V1)
 4. Should we show unit difficulty level or time estimates? (Recommendation: Not for V1)
-5. What happens when a student completes 100% of content in their grade? (Recommendation: Celebratory message + suggest exploring other subject)
+5. What happens when a student completes 100% of content in their grade? (Recommendation: Celebratory message + suggest exploring other grade level if selected)
+6. **NEW:** For multi-grade users, should the dashboard show all grades in one scrollable view, or use tabs/toggles to switch between grades? (Recommendation: Start with sections in one view, add toggle if needed based on user feedback)
+7. **NEW:** Should progress be tracked separately per grade level, or combined? (Recommendation: Track separately - a student might master Grade 4 Math but be starting Grade 6 Math)
 
 ---
 
