@@ -8,9 +8,11 @@ export async function POST() {
     await signIn('credentials', {
       email: 'tkhongsap',
       password: 'sthought',
+      redirect: false,
       redirectTo: '/auth/grade-selection',
     });
 
+    console.log('[Dev Bypass API] Sign in successful');
     return NextResponse.json({ 
       success: true, 
       redirectTo: '/auth/grade-selection' 

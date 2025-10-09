@@ -1,0 +1,78 @@
+    ╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+     │ Fix Dev Bypass Sign-In Error - Comprehensive Analysis & Solution                                                                         │
+     │                                                                                                                                          │
+     │ Complete Problem Analysis                                                                                                                │
+     │                                                                                                                                          │
+     │ After thorough investigation, I found TWO CRITICAL BUGS causing the error "เกิดข้อผิดพลาดในการเข้าสู่                                    │
+     │                                                                                                                                          │
+     │ Issue #1: Missing redirect: false in API Route (CRITICAL)                                                                                │
+     │                                                                                                                                          │
+     │ Location: /app/api/dev-bypass/route.ts:8-12                                                                                              │
+     │                                                                                                                                          │
+     │ Problem:                                                                                                                                 │
+     │ - The API route calls signIn() WITHOUT the redirect: false parameter                                                                     │
+     │ - In NextAuth v5, when successful sign-in occurs without this parameter, it throws a NEXT_REDIRECT error to trigger server-side redirect │
+     │ - The catch block treats this redirect as an error and returns failure response                                                          │
+     │ - Result: Even successful logins are reported as errors!                                                                                 │
+     │                                                                                                                                          │
+     │ Evidence:                                                                                                                                │
+     │ - Working server actions in app/actions/auth.ts:19 and :43 correctly use redirect: false                                                 │
+     │ - Current API route is missing this critical parameter                                                                                   │
+     │                                                                                                                                          │
+     │ Issue #2: Admin User Doesn't Exist in Database (CRITICAL)                                                                                │
+     │                                                                                                                                          │
+     │ Location: Database                                                                                                                       │
+     │                                                                                                                                          │
+     │ Problem:                                                                                                                                 │
+     │ - Dev Bypass tries to login with: tkhongsap / sthought                                                                                   │
+     │ - Seed script exists at prisma/seed.js but hasn't been executed                                                                          │
+     │ - Without seeding, this user doesn't exist in the database                                                                               │
+     │ - Credentials provider returns null, causing authentication failure                                                                      │
+     │                                                                                                                                          │
+     │ Evidence:                                                                                                                                │
+     │ - .env file contains placeholder DATABASE_URL                                                                                            │
+     │ - No indication seed script has been run                                                                                                 │
+     │                                                                                                                                          │
+     │ Solution Plan                                                                                                                            │
+     │                                                                                                                                          │
+     │ Step 1: Run Database Seed                                                                                                                │
+     │                                                                                                                                          │
+     │ npm run db:seed                                                                                                                          │
+     │ This creates the admin user with email tkhongsap, password sthought (bcrypt hashed), and isAdmin: true                                   │
+     │                                                                                                                                          │
+     │ Step 2: Fix API Route - Add redirect: false                                                                                              │
+     │                                                                                                                                          │
+     │ File: /app/api/dev-bypass/route.ts                                                                                                       │
+     │                                                                                                                                          │
+     │ Change line 8-12 from:                                                                                                                   │
+     │ await signIn('credentials', {                                                                                                            │
+     │   email: 'tkhongsap',                                                                                                                    │
+     │   password: 'sthought',                                                                                                                  │
+     │   redirectTo: '/auth/grade-selection',                                                                                                   │
+     │ });                                                                                                                                      │
+     │                                                                                                                                          │
+     │ To:                                                                                                                                      │
+     │ await signIn('credentials', {                                                                                                            │
+     │   email: 'tkhongsap',                                                                                                                    │
+     │   password: 'sthought',                                                                                                                  │
+     │   redirect: false,  // ← ADD THIS                                                                                                        │
+     │   redirectTo: '/auth/grade-selection',                                                                                                   │
+     │ });                                                                                                                                      │
+     │                                                                                                                                          │
+     │ Step 3: Verify Database Connection                                                                                                       │
+     │                                                                                                                                          │
+     │ Ensure .env has a valid DATABASE_URL for PostgreSQL (not the placeholder)                                                                │
+     │                                                                                                                                          │
+     │ Expected Outcome                                                                                                                         │
+     │                                                                                                                                          │
+     │ After both fixes:                                                                                                                        │
+     │ 1. ✅ Dev Bypass button works correctly                                                                                                   │
+     │ 2. ✅ User is signed in with admin credentials                                                                                            │
+     │ 3. ✅ Redirects to /auth/grade-selection                                                                                                  │
+     │ 4. ✅ No error message appears                                                                                                            │
+     │                                                                                                                                          │
+     │ Why Both Fixes Are Needed                                                                                                                │
+     │                                                                                                                                          │
+     │ - Without seed: Database has no user → credentials fail → legitimate error                                                               │
+     │ - Without redirect: false: Successful login throws NEXT_REDIRECT → caught as error → false failure                                       │
+     │ - With both: User exists + proper redirect handling → success!     

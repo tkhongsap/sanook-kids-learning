@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import SocialSignInButton from '@/components/ui/SocialSignInButton';
-import { devBypassSignInAction } from '@/app/actions/auth';
 import { useAuth } from '@/hooks/useAuth';
 import { trackCTAClick } from '@/lib/analytics';
 
@@ -29,7 +28,11 @@ export default function CTASection() {
       setEmailBypassLoading(true);
 
       try {
-        const result = await devBypassSignInAction();
+        const response = await fetch('/api/dev-bypass', {
+          method: 'POST',
+        });
+
+        const result = await response.json();
 
         if (!result.success) {
           if (!isMounted) {
