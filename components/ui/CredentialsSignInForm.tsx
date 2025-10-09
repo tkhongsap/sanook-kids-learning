@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { devBypassSignInAction } from '@/app/actions/auth';
 
 interface CredentialsSignInFormProps {
   className?: string;
@@ -16,7 +15,12 @@ export default function CredentialsSignInForm({ className = '' }: CredentialsSig
     setDevLoading(true);
 
     try {
-      const result = await devBypassSignInAction();
+      const response = await fetch('/api/dev-bypass', {
+        method: 'POST',
+      });
+
+      const result = await response.json();
+
       if (!result.success) {
         setError(result.error || 'เกิดข้อผิดพลาด');
         setDevLoading(false);
