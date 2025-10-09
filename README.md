@@ -56,7 +56,18 @@ Edit `.env.local` with your actual values:
 - Google Analytics Measurement ID
 - OAuth credentials (will be configured later)
 
-### 4. Run Development Server
+### 4. Apply Database Migrations and Seed Admin User
+
+Make sure your `.env.local` includes a valid `DATABASE_URL`, then run:
+
+```bash
+npx prisma migrate dev
+npm run db:seed
+```
+
+This applies the latest schema (including email/password support) and ensures the default admin account exists.
+
+### 5. Run Development Server
 
 ```bash
 npm run dev
@@ -64,7 +75,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### 5. Build for Production
+### 6. Build for Production
 
 ```bash
 npm run build
@@ -125,6 +136,13 @@ npm run lint
 ## 🧪 Testing
 
 Testing will be implemented in future tasks.
+
+## 🔐 Default Admin Login
+
+- Username: `tkhongsap`
+- Password: `sthought`
+
+You can override these by setting `ADMIN_EMAIL`, `ADMIN_NAME`, `ADMIN_PASSWORD`, or `ADMIN_PASSWORD_HASH` in `.env.local` before running `npm run db:seed`.
 
 ## 📚 Documentation
 
