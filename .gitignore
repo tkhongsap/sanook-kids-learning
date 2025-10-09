@@ -50,7 +50,6 @@ dist/
 public/build/
 public/dist/
 release/
-lib/
 compiled/
 .next/
 out/

@@ -17,7 +17,7 @@ Sanook Kids Learning is a free Thai educational platform for Grade 4 (ป.4) and
 - Secure password hashing with bcryptjs
 - Admin account support with isAdmin flag
 - Dual login UI with tab-based interface (Google / Email)
-- Admin account created: `tkhongsap` (for testing and development)
+- Admin account created: `tkhongsap` (ensure by running `npm run db:seed`)
 
 ### October 6, 2025 - User Authentication System Complete (PRD 0001)
 
@@ -133,6 +133,7 @@ Sanook Kids Learning is a free Thai educational platform for Grade 4 (ป.4) and
 - Email: `tkhongsap`
 - Password: `sthought`
 - Has `isAdmin: true` flag for special privileges
+- Seed locally with `npm run db:seed` (supports overrides via admin-related env vars)
 
 ### Route Protection (Middleware)
 
