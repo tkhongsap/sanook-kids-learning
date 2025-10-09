@@ -20,8 +20,7 @@ export async function devBypassSignInAction() {
       redirectTo: '/auth/grade-selection',
     })) as SignInResponse | undefined;
     console.log('[Dev Bypass] Sign in successful');
-    const redirectTo = result?.url ?? '/auth/grade-selection';
-    return { success: true, redirectTo };
+    return { success: true, redirectTo: '/auth/grade-selection' };
   } catch (error) {
     console.error('[Dev Bypass] Sign-in error:', error);
     return {
