@@ -1,47 +1,44 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
-import { DEV_BYPASS_EMAIL, DEV_BYPASS_PASSWORD } from '@/lib/dev-bypass';
+import { devBypassSignInAction } from '@/app/actions/auth';
 
 interface CredentialsSignInFormProps {
   className?: string;
 }
 
 export default function CredentialsSignInForm({ className = '' }: CredentialsSignInFormProps) {
-  const [devLoading, setDevLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
-  const handleBypassLogin = async () => {
+  const handleBypassLogin = useCallback(() => {
     setError(null);
-    setDevLoading(true);
 
-    try {
-      console.log('[CredentialsSignInForm] Starting dev bypass sign in...');
-      const result = await signIn('credentials', {
-        email: DEV_BYPASS_EMAIL,
-        password: DEV_BYPASS_PASSWORD,
-        redirect: false,
-      });
+    startTransition(async () => {
+      try {
+        console.log('[CredentialsSignInForm] Starting dev bypass sign in...');
+        const result = await devBypassSignInAction();
 
-      if (result?.error) {
-        console.error('[CredentialsSignInForm] Sign in error:', result.error);
+        if (!result?.success) {
+          console.error('[CredentialsSignInForm] Sign in error:', result?.error);
+          setError(result?.error ?? 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
+          return;
+        }
+
+        const redirectTo = result.redirectTo ?? '/auth/grade-selection';
+        console.log('[CredentialsSignInForm] Sign in successful, redirecting to', redirectTo);
+        router.push(redirectTo);
+        router.refresh();
+      } catch (err) {
+        console.error('[CredentialsSignInForm] Dev bypass failed', err);
         setError('เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
-        setDevLoading(false);
-        return;
       }
+    });
+  }, [router, startTransition]);
 
-      console.log('[CredentialsSignInForm] Sign in successful, redirecting...');
-      // Navigate to grade selection - middleware will handle routing based on grade level
-      router.push('/auth/grade-selection');
-    } catch (err) {
-      console.error('[CredentialsSignInForm] Dev bypass failed', err);
-      setError('เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
-      setDevLoading(false);
-    }
-  };
+  const devLoading = isPending;
 
   return (
     <div className={`space-y-4 ${className}`}>

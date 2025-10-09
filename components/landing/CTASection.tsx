@@ -30,22 +30,6 @@ export default function CTASection() {
       setEmailBypassLoading(true);
 
       try {
-        const response = await fetch('/api/dev-bypass', {
-          method: 'POST',
-        });
-
-        if (!response.ok) {
-          const data = await response.json().catch(() => null);
-          if (!isMounted) {
-            return;
-          }
-
-          setEmailBypassError(data?.error || 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
-          setEmailBypassLoading(false);
-          setLoginMethod('google');
-          return;
-        }
-
         const result = await nextAuthSignIn('credentials', {
           email: DEV_BYPASS_EMAIL,
           password: DEV_BYPASS_PASSWORD,
@@ -53,11 +37,11 @@ export default function CTASection() {
           callbackUrl: '/auth/grade-selection',
         });
 
-        if (result?.error) {
-          if (!isMounted) {
-            return;
-          }
+        if (!isMounted) {
+          return;
+        }
 
+        if (result?.error) {
           setEmailBypassError('เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
           setEmailBypassLoading(false);
           setLoginMethod('google');
@@ -65,10 +49,7 @@ export default function CTASection() {
         }
 
         const redirectTo = result?.url ?? '/auth/grade-selection';
-
-        if (isMounted) {
-          window.location.href = redirectTo;
-        }
+        window.location.href = redirectTo;
       } catch (err) {
         console.error('[CTASection] Dev bypass failed', err);
 
